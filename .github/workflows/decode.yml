@@ -1,0 +1,20 @@
+name: decode-binary-assets
+on:
+  push:
+    branches: [main]
+    paths: ['assets/**.b64']
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  decode:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Decode .b64 files to binaries
+        run: |
+          for f in $(find assets -name '*.b64'); do base64 -d "$f" > "${f%.b64}"; git rm -q --cached "$f"; rm "$f"; done
+          git config user.name "github-actions[bot]"
+          git config user.email "41898237+github-actions[bot]@users.noreply.github.com"
+          git add -A assets
+          git diff --cached --quiet || git commit -m "Decode binary assets" && git push
