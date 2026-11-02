@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://ronitkumartoppo-del.github.io/glowtheory-pages/sitemap.xml
