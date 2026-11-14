@@ -57,6 +57,18 @@ footer{padding:26px 0 36px;border-top:1px solid var(--line);font-size:.86rem;col
 .banner{background:linear-gradient(120deg,#BE185D,#EC4899);color:#fff;border-radius:18px;padding:20px 22px;margin:26px 0;text-align:center}
 .banner h2,.banner p{color:#fff}.banner .btn{background:#fff;color:var(--magenta)}
 @media(min-width:760px){.two{grid-template-columns:1fr 1fr}.gift{grid-template-columns:1fr 1fr}.hero{padding:46px 0 44px}}
+.signup{max-width:26em;margin:4px auto 0;text-align:left}
+.signup-lead{text-align:center;font-size:1rem;color:var(--muted);margin:0 0 14px}
+.signup .field{margin:0 0 12px}
+.signup label{display:block;font-size:.86rem;font-weight:600;margin:0 0 6px;color:var(--ink)}
+.signup .optional{font-weight:400;color:var(--muted)}
+.signup input[type=email],.signup input[type=text]{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:12px;font:inherit;color:var(--ink);background:#fff}
+.signup input:focus{outline:2px solid var(--pink);outline-offset:1px;border-color:var(--pink)}
+.signup button.btn{width:100%;border:0;cursor:pointer;font-family:inherit;margin-top:4px}
+.signup-ok{display:none;text-align:center;background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 16px;margin:0 0 8px;font-weight:600;color:var(--magenta)}
+.signup.is-sent .signup-ok{display:block}
+.signup.is-sent form{display:none}
+
 </style>
 </head>
 <body>
@@ -72,13 +84,41 @@ footer{padding:26px 0 36px;border-top:1px solid var(--line);font-size:.86rem;col
 <li>Little Water, Move, Read and Rest circles for each day</li>
 <li>A 30-day reflection page to note what you want to keep</li>
 </ul>
-<!-- EMAIL FORM: MailerLite embed goes here -->
-<p class="note" style="margin-top:18px">Download the checklist</p>
+<div class="signup" id="checklist-signup">
+<p class="signup-lead">Get it in your inbox (plus a few gentle self-care notes):</p>
+<p class="signup-ok" role="status">Check your inbox to confirm and get your checklist.</p>
+<form id="ml-checklist-form" action="https://assets.mailerlite.com/jsonp/2795174/forms/204109990856755075/subscribe" method="post" target="ml-hidden-iframe">
+<div class="field">
+<label for="ml-email">Email</label>
+<input id="ml-email" type="email" name="fields[email]" required autocomplete="email" inputmode="email">
+</div>
+<div class="field">
+<label for="ml-name">First name <span class="optional">(optional)</span></label>
+<input id="ml-name" type="text" name="fields[name]" autocomplete="given-name">
+</div>
+<input type="hidden" name="ml-submit" value="1">
+<input type="hidden" name="anticsrf" value="true">
+<button class="btn" type="submit">Send me the checklist</button>
+</form>
+<iframe name="ml-hidden-iframe" title="Signup confirmation" hidden tabindex="-1"></iframe>
+</div>
+<p class="note" style="margin-top:18px">Or download it instantly</p>
 <a class="btn" href="../../assets/free/30-day-glow-up-checklist.pdf" download>Download the printable checklist (PDF)</a>
 <p class="note">Opens a 3-page PDF (US Letter). Print at home, for personal use.</p>
 </div></section>
 
 </main>
 <footer><div class="wrap">© 2026 Glow Theory & Co. · Self-care · Planners · Printables</div></footer>
+
+<script>
+(function(){
+  var box=document.getElementById("checklist-signup");
+  var form=document.getElementById("ml-checklist-form");
+  if(!box||!form)return;
+  form.addEventListener("submit",function(){
+    box.classList.add("is-sent");
+  });
+})();
+</script>
 </body>
 </html>
