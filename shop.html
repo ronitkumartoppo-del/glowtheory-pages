@@ -4,144 +4,227 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>The Glow Theory · Shop</title>
+<meta name="description" content="Honest skincare and self-care picks from @theglowtheory.edit: compared side by side with real buyer feedback.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600&family=DM+Sans:wght@400;500;700&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,700&family=Manrope:wght@400;500;700;800&display=swap">
 <style>
-/* VOICE: warm, tender beauty editor; short sentences, no hype.
-   IDEA: a boutique shelf card from a beauty counter; each guide is a shelf you browse.
-   PICTURE: hand-drawn SVG products sitting on a magenta shelf, large in each hero.
-   COLOUR and TYPE: Glow Theory magenta field, cream ground, blush accent; Playfair Display titles, DM Sans body.
-   LAYOUT: one column, phone first; hero band full width, picks as shelf cards, sticky shop button per card. */
-:root{color-scheme:light dark;
---bg:light-dark(#FFF7F2,#1d1117);--card:light-dark(#ffffff,#2a1922);--ink:light-dark(#3b2430,#f8e9ef);--muted:light-dark(#6f5662,#cfb3c0);
---line:light-dark(#f6dbe6,#43293a);--mag:light-dark(#BE185D,#f0679f);--magfield:#BE185D;--blush:light-dark(#ffe1ec,#3a2030);--soft:#FF9EC8}
-:root[data-theme=light]{color-scheme:light}:root[data-theme=dark]{color-scheme:dark}
+/* VOICE: a trusted beauty editor; calm, specific, honest about trade-offs.
+   IDEA: a premium beauty counter's buying guide card; each category is its own shelf with its own colour.
+   PICTURE: illustrated products on a tinted spotlight, a price-vs-features map, a step-by-step demo strip.
+   COLOUR and TYPE: ivory base, near-black ink; each category brings one deep accent + a tint; CTA is the deep accent at high contrast. Fraunces + Manrope.
+   LAYOUT: single column up to 1120px; hero split on desktop, stacked on phones; tables scroll sideways on small screens. */
+:root{--bg:#FAF7F2;--ink:#1A1714;--muted:#6B6259;--line:#E7E0D6;--card:#fff;--a:#1A1714;--t:#F1ECE4;--h:#D8CCBB}
 *{box-sizing:border-box;min-width:0}
-body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.55 "DM Sans",system-ui,sans-serif;overflow-x:clip}
-a{color:var(--mag)}
-.top{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px max(5vw,16px);border-bottom:1px solid var(--line);background:var(--bg)}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--ink);font:600 17px "Playfair Display",Georgia,serif}
-.seal{width:34px;height:34px;border-radius:50%;background:var(--magfield);display:grid;place-items:center}
-.top .all{font-size:14px;font-weight:500;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 14px;min-height:40px;display:inline-flex;align-items:center}
-.hero{background:var(--magfield);color:#fff;padding:clamp(26px,5vw,56px) max(5vw,16px) 0;overflow:hidden}
-.hero .in{max-width:1100px;margin:0 auto;display:grid;gap:18px}
-.kick{font-size:14px;opacity:.85;margin:0}
-h1{font:700 clamp(32px,6vw,50px)/1.05 "Playfair Display",Georgia,serif;margin:0;text-wrap:balance}
-.lede{font-size:17px;max-width:58ch;margin:0;opacity:.95}
-.shelf{position:relative;height:clamp(150px,26vw,230px);margin-top:8px}
-.shelf .plank{position:absolute;left:-10vw;right:-10vw;bottom:0;height:22px;background:#8f0f45;box-shadow:0 -2px 0 #e0478a inset}
-.shelf .row{position:absolute;left:0;right:0;bottom:22px;display:flex;justify-content:center;align-items:flex-end;gap:clamp(4px,2vw,20px)}
-.shelf svg{height:clamp(110px,20vw,190px);width:auto;flex:none;filter:drop-shadow(0 10px 8px rgba(60,0,25,.35))}
-main{max-width:760px;margin:0 auto;padding:22px max(4vw,14px) 56px}
-.disc{background:var(--blush);border-radius:12px;padding:10px 14px;font-size:13px;color:var(--muted);margin:0 0 22px}
-.picks{list-style:none;margin:0;padding:0;display:grid;gap:14px;counter-reset:p}
-.pick{background:var(--card);border:1px solid var(--line);border-radius:18px;display:grid;grid-template-columns:110px minmax(0,1fr);gap:14px;padding:14px;counter-increment:p}
-.pick .art{background:var(--blush);border-radius:14px;display:grid;place-items:center;aspect-ratio:1}
-.pick .art svg{width:88%;height:auto}
-.pick h3{font:600 20px/1.2 "Playfair Display",Georgia,serif;margin:2px 0 4px}
-.pick h3::before{content:counter(p) ". ";color:var(--mag)}
-.pick p{margin:0 0 10px;color:var(--muted)}
-.pick .use{font-size:14px;color:var(--ink);margin-bottom:12px}
-.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border-radius:999px;background:var(--magfield);color:#fff;font-weight:700;text-decoration:none;font-size:15px}
-.btn:hover{background:#9d1450}
-.btn:focus-visible,.top a:focus-visible,.card:focus-visible{outline:3px solid var(--soft);outline-offset:2px}
-h2{font:600 24px/1.2 "Playfair Display",Georgia,serif;margin:34px 0 12px}
-.steps{margin:0;padding-left:22px}.steps li{margin-bottom:8px}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:14px}
-.card{display:block;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden}
-.card .pic{background:var(--blush);display:flex;justify-content:center;align-items:flex-end;gap:2px;height:120px;padding:10px 8px 0}
-.card .pic svg{height:96px;width:auto}
-.card b{display:block;font:600 18px/1.2 "Playfair Display",Georgia,serif;padding:12px 14px 2px}
-.card span{display:block;padding:0 14px 14px;font-size:14px;color:var(--muted)}
-.next{margin-top:30px;padding:18px;border-radius:18px;background:var(--blush)}
-.next p{margin:0 0 10px}
-footer{border-top:1px solid var(--line);padding:22px max(5vw,16px) 40px;text-align:center;font-size:13px;color:var(--muted)}
-@media(max-width:600px){.pick{grid-template-columns:84px minmax(0,1fr);gap:12px}.pick .btn{width:100%;justify-content:center}}
-@media(prefers-reduced-motion:no-preference){.shelf .row svg{animation:up .5s ease-out both}.shelf .row svg:nth-child(2){animation-delay:.08s}.shelf .row svg:nth-child(3){animation-delay:.16s}.shelf .row svg:nth-child(4){animation-delay:.24s}@keyframes up{from{transform:translateY(24px);opacity:0}}}
+html{scroll-padding-top:72px}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 Manrope,system-ui,sans-serif;overflow-x:clip;-webkit-font-smoothing:antialiased}
+a{color:inherit}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-.01em;margin:0}
+.wrap{max-width:1120px;margin:0 auto;padding:0 max(4vw,16px)}
+.top{position:sticky;top:0;z-index:5;background:rgba(250,247,242,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.top .wrap{display:flex;align-items:center;justify-content:space-between;height:60px}
+.logo{font:600 19px Fraunces,Georgia,serif;text-decoration:none;display:flex;align-items:center;gap:9px}
+.logo i{width:10px;height:10px;border-radius:50%;background:var(--a);display:inline-block}
+.navlink{font-weight:700;font-size:14px;text-decoration:none;border:1px solid var(--line);border-radius:999px;padding:9px 16px;background:#fff}
+.hero{background:var(--t);border-bottom:1px solid var(--line)}
+.hero .wrap{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:28px;align-items:center;padding-top:clamp(28px,5vw,64px);padding-bottom:clamp(28px,5vw,56px)}
+.kick{font-size:13px;font-weight:800;letter-spacing:.02em;color:var(--a);margin:0 0 10px}
+.hero h1{font-size:clamp(34px,5.4vw,56px);line-height:1.04;text-wrap:balance}
+.hero p.sub{font-size:18px;color:var(--muted);max-width:52ch;margin:14px 0 0}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font-size:13px;font-weight:700;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 14px}
+.chip b{color:var(--a)}
+.stage{position:relative;aspect-ratio:1/.82;display:grid;place-items:center}
+.stage .disc{position:absolute;inset:6% 8%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0,var(--h) 70%)}
+.stage .row{position:relative;display:flex;align-items:flex-end;gap:4%;width:86%;justify-content:center}
+.stage svg{width:30%;height:auto;filter:drop-shadow(0 14px 14px rgba(26,23,20,.18))}
+.stage svg:nth-child(2){width:38%}
+main{padding:28px 0 64px}
+.disc-note{font-size:13px;color:var(--muted);border:1px solid var(--line);background:#fff;border-radius:12px;padding:10px 14px;margin:0 0 30px}
+section.block{margin:46px 0}
+section.block>h2{font-size:clamp(24px,3vw,32px);line-height:1.15;margin-bottom:6px}
+section.block>p.lead{color:var(--muted);margin:0 0 18px}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 20px;border-radius:999px;background:var(--a);color:#fff;font-weight:800;font-size:15px;text-decoration:none;white-space:nowrap}
+.btn:hover{filter:brightness(1.12)}
+.btn.ghost{background:transparent;color:var(--a);border:2px solid var(--a)}
+a:focus-visible,.btn:focus-visible{outline:3px solid var(--h);outline-offset:3px}
+/* quick picks */
+.qp{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.qp .c{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px;display:flex;flex-direction:column;gap:8px}
+.qp .tag{font-size:12px;font-weight:800;color:var(--a);background:var(--t);border-radius:999px;padding:4px 10px;align-self:flex-start}
+.qp h3{font-size:19px;line-height:1.2}
+.qp p{margin:0 0 6px;color:var(--muted);font-size:14px;flex:1}
+/* steps infographic */
+.steps{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;position:relative}
+.steps li{position:relative;padding:0 14px 0 0}
+.steps .n{width:46px;height:46px;border-radius:50%;background:var(--a);color:#fff;display:grid;place-items:center;font:700 18px Fraunces,serif;position:relative;z-index:1}
+.steps li:not(:last-child)::after{content:"";position:absolute;top:22px;left:46px;right:0;height:2px;background:repeating-linear-gradient(90deg,var(--h) 0 8px,transparent 8px 14px)}
+.steps b{display:block;margin:12px 0 2px;font-size:16px}
+.steps span{color:var(--muted);font-size:14px;display:block}
+.demo{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px}
+.note{margin:16px 0 0;font-size:13px;color:var(--muted)}
+/* map */
+.mapwrap{background:#fff;border:1px solid var(--line);border-radius:22px;padding:18px 18px 10px}
+.fig{position:relative;height:340px}
+.fig svg{position:absolute;inset:0;width:100%;height:100%}
+.legend{font-size:12px;color:var(--muted);margin:6px 2px 0}
+/* table */
+.scroll{overflow-x:auto;border:1px solid var(--line);border-radius:18px;background:#fff}
+table{border-collapse:collapse;width:100%;min-width:720px;font-size:14px}
+th,td{padding:12px 14px;border-bottom:1px solid var(--line);text-align:left;vertical-align:top}
+thead th{font:600 15px Fraunces,serif;background:var(--t)}
+tbody th{font-weight:800;color:var(--muted);font-size:12px;white-space:nowrap;background:#fff;position:sticky;left:0}
+tr:last-child td,tr:last-child th{border-bottom:0}
+td .btn{min-height:40px;font-size:13px;padding:0 14px}
+/* product cards */
+.cards{display:grid;gap:18px}
+.pc{background:#fff;border:1px solid var(--line);border-radius:22px;display:grid;grid-template-columns:200px minmax(0,1fr);overflow:hidden}
+.pc .art{background:var(--t);display:grid;place-items:center;padding:16px;position:relative}
+.pc .art svg{width:76%;height:auto;filter:drop-shadow(0 10px 10px rgba(26,23,20,.15))}
+.pc .rank{position:absolute;top:12px;left:12px;font:700 13px Fraunces,serif;background:#fff;border-radius:999px;padding:3px 10px}
+.pc .body{padding:20px 22px}
+.pc .badge{display:inline-block;font-size:12px;font-weight:800;color:#fff;background:var(--a);border-radius:999px;padding:4px 10px;margin-bottom:8px}
+.pc h3{font-size:22px;line-height:1.2}
+.pc .brand{font-size:13px;color:var(--muted);margin:2px 0 8px}
+.pc .angle{font:italic 400 18px/1.4 Fraunces,serif;margin:0 0 14px}
+.pc .pros{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:16px;margin-bottom:14px}
+.pc .pros h4{margin:0 0 6px;font-size:12px;font-weight:800;color:var(--muted)}
+.pc ul{list-style:none;margin:0;padding:0;font-size:14px}
+.pc li{padding-left:24px;position:relative;margin-bottom:6px}
+.pc li::before{position:absolute;left:0;top:1px;width:17px;height:17px;border-radius:50%;display:grid;place-items:center;font-size:11px;font-weight:800}
+.pc .yes li::before{content:"✓";background:var(--t);color:var(--a)}
+.pc .no li::before{content:"–";background:#F3EFE9;color:var(--muted)}
+.pc .why{background:var(--t);border-radius:12px;padding:10px 14px;font-size:14px;margin-bottom:14px}
+.pc .why b{color:var(--a)}
+.pc .meta{font-size:13px;color:var(--muted);margin-left:12px}
+.look{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;list-style:none;margin:0;padding:0}
+.look li{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;font-size:15px;display:flex;gap:10px;align-items:flex-start}
+.look li::before{content:"";flex:none;width:12px;height:12px;margin-top:6px;border-radius:3px;background:var(--a);transform:rotate(45deg)}
+/* gumroad slider */
+.slider{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(240px,1fr);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}
+.gp{scroll-snap-align:start;background:#1A1714;color:#fff;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:8px;text-decoration:none}
+.gp small{font-size:12px;font-weight:800;color:var(--h)}
+.gp b{font:600 20px/1.2 Fraunces,serif}
+.gp span{font-size:14px;opacity:.8;flex:1}
+.gp em{font-style:normal;font-weight:800;color:#fff;border-top:1px solid rgba(255,255,255,.15);padding-top:10px}
+/* home */
+.how{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:24px}
+.how div{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px;font-size:14px}
+.how b{display:block;font:600 17px Fraunces,serif}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,250px),1fr));gap:14px}
+.cc{text-decoration:none;border-radius:20px;overflow:hidden;border:1px solid var(--line);background:#fff;display:flex;flex-direction:column}
+.cc .pic{height:130px;display:flex;align-items:flex-end;justify-content:center;gap:4px;padding:12px 10px 0}
+.cc .pic svg{height:108px;width:auto;filter:drop-shadow(0 8px 8px rgba(26,23,20,.14))}
+.cc .tx{padding:14px 16px 16px}
+.cc b{display:block;font:600 19px/1.2 Fraunces,serif}
+.cc span{display:block;font-size:14px;color:var(--muted);margin-top:4px}
+.cc em{display:block;font-style:normal;font-weight:800;font-size:13px;margin-top:10px}
+h2.group{font-size:22px;margin:38px 0 12px}
+/* collection */
+.stepcard{display:grid;grid-template-columns:72px minmax(0,1fr);gap:16px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px;margin-bottom:14px}
+.stepcard .num{width:72px;height:72px;border-radius:18px;display:grid;place-items:center;font:700 26px Fraunces,serif;color:#fff}
+.stepcard h3{font-size:22px}
+.stepcard .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+footer{border-top:1px solid var(--line);padding:26px 0 44px;font-size:13px;color:var(--muted)}
+@media(max-width:860px){.hero .wrap{grid-template-columns:minmax(0,1fr)}.stage{max-width:420px;width:100%;margin:0 auto}.qp,.look,.how{grid-template-columns:minmax(0,1fr)}.steps{grid-template-columns:minmax(0,1fr);gap:16px}.steps li{display:grid;grid-template-columns:46px minmax(0,1fr);gap:0 14px;padding:0}.steps li:not(:last-child)::after{top:46px;left:22px;width:2px;height:calc(100% - 30px);right:auto;background:repeating-linear-gradient(180deg,var(--h) 0 8px,transparent 8px 14px)}.steps b{margin-top:4px}.steps span{grid-column:2}}
+@media(max-width:640px){.pc{grid-template-columns:minmax(0,1fr)}.pc .art{height:170px}.pc .art svg{width:auto;height:140px}.pc .pros{grid-template-columns:minmax(0,1fr)}.pc .btn{width:100%}.pc .meta{display:block;margin:8px 0 0}.fig{height:300px}.stepcard{grid-template-columns:minmax(0,1fr)}.stepcard .num{width:52px;height:52px;font-size:20px}}
+@media(prefers-reduced-motion:no-preference){.stage .row svg{animation:rise .6s cubic-bezier(.2,.8,.2,1) both}.stage .row svg:nth-child(2){animation-delay:.08s}.stage .row svg:nth-child(3){animation-delay:.16s}@keyframes rise{from{transform:translateY(22px);opacity:0}}}
 </style>
 </head>
 <body>
-<header class="top">
-  <a class="brand" href="#home"><span class="seal" aria-hidden="true"><svg width="20" height="20" viewBox="0 0 24 24"><path d="M12 3c2 3 2 6 0 9-2-3-2-6 0-9zm0 9c3-1 6 0 8 2-3 1-6 0-8-2zm0 0c-3-1-6 0-8 2 3 1 6 0 8-2z" fill="#fff"/></svg></span>The Glow Theory</a>
-  <a class="all" href="#home">All guides</a>
-</header>
-<div id="view"></div>
-<footer>As an Amazon Associate I earn from qualifying purchases. · Follow <a href="https://www.instagram.com/theglowtheory.edit/">@theglowtheory.edit</a></footer>
-
+<header class="top"><div class="wrap"><a class="logo" href="#"><i></i>The Glow Theory</a><a class="navlink" href="#">All categories</a></div></header>
+<div id="app"></div>
+<footer><div class="wrap">As an Amazon Associate I earn from qualifying purchases. Buyer feedback is summarised in our own words; prices and availability change, so check Amazon before you buy. Follow <a href="https://www.instagram.com/theglowtheory.edit/">@theglowtheory.edit</a>.</div></footer>
+<script src="shop-data.js"></script>
 <script>
 {
-const AMZ=a=>'https://www.amazon.com/dp/'+a+'?tag=glowtheoryig-20';
-/* product illustrations: each returns an SVG on a 120x140 canvas */
-const S=(body)=>`<svg viewBox="0 0 120 140" role="img" aria-hidden="true">${body}</svg>`;
-const shapes={
- jar:(c,l)=>S(`<rect x="22" y="58" width="76" height="72" rx="14" fill="${c}"/><rect x="18" y="40" width="84" height="24" rx="8" fill="${l}"/><rect x="30" y="70" width="12" height="48" rx="6" fill="#fff" opacity=".35"/><rect x="38" y="86" width="44" height="18" rx="4" fill="#fff" opacity=".8"/>`),
- pump:(c,l)=>S(`<rect x="34" y="50" width="52" height="84" rx="12" fill="${c}"/><rect x="52" y="22" width="16" height="30" fill="${l}"/><rect x="52" y="16" width="34" height="9" rx="4" fill="${l}"/><rect x="40" y="62" width="9" height="60" rx="4" fill="#fff" opacity=".4"/><rect x="42" y="84" width="36" height="22" rx="3" fill="#fff" opacity=".85"/>`),
- dropper:(c,l)=>S(`<rect x="36" y="66" width="48" height="68" rx="10" fill="${c}"/><rect x="46" y="46" width="28" height="22" rx="4" fill="${l}"/><rect x="52" y="14" width="16" height="34" rx="8" fill="${l}"/><rect x="42" y="76" width="8" height="48" rx="4" fill="#fff" opacity=".4"/><rect x="44" y="92" width="32" height="18" rx="3" fill="#fff" opacity=".85"/>`),
- tube:(c,l)=>S(`<path d="M38 22h44l-6 100H44z" fill="${c}"/><rect x="44" y="118" width="32" height="18" rx="3" fill="${l}"/><rect x="44" y="30" width="8" height="70" rx="4" fill="#fff" opacity=".4"/><rect x="50" y="56" width="22" height="26" rx="3" fill="#fff" opacity=".85"/>`),
+const D=window.GLOW,TAG='glowtheoryig-20';
+const amz=a=>'https://www.amazon.com/dp/'+a+'?tag='+TAG;
+const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+const S=b=>'<svg viewBox="0 0 120 140" aria-hidden="true">'+b+'</svg>';
+const SH={
+ jar:(c,l)=>S(`<rect x="22" y="58" width="76" height="72" rx="14" fill="${c}"/><rect x="18" y="40" width="84" height="24" rx="8" fill="${l}"/><rect x="30" y="70" width="10" height="48" rx="5" fill="#fff" opacity=".4"/><rect x="40" y="86" width="40" height="18" rx="4" fill="#fff" opacity=".85"/>`),
+ pump:(c,l)=>S(`<rect x="34" y="50" width="52" height="84" rx="12" fill="${c}"/><rect x="52" y="22" width="16" height="30" fill="${l}"/><rect x="52" y="16" width="34" height="9" rx="4" fill="${l}"/><rect x="40" y="62" width="8" height="60" rx="4" fill="#fff" opacity=".45"/><rect x="44" y="84" width="34" height="22" rx="3" fill="#fff" opacity=".85"/>`),
+ dropper:(c,l)=>S(`<rect x="36" y="66" width="48" height="68" rx="10" fill="${c}"/><rect x="46" y="46" width="28" height="22" rx="4" fill="${l}"/><rect x="52" y="14" width="16" height="34" rx="8" fill="${l}"/><rect x="42" y="76" width="7" height="48" rx="3" fill="#fff" opacity=".45"/><rect x="46" y="92" width="30" height="18" rx="3" fill="#fff" opacity=".85"/>`),
+ tube:(c,l)=>S(`<path d="M38 22h44l-6 100H44z" fill="${c}"/><rect x="44" y="118" width="32" height="18" rx="3" fill="${l}"/><rect x="45" y="30" width="7" height="70" rx="3" fill="#fff" opacity=".45"/><rect x="50" y="56" width="22" height="26" rx="3" fill="#fff" opacity=".85"/>`),
  patch:(c,l)=>S(`<rect x="18" y="40" width="84" height="92" rx="12" fill="${c}"/>${[0,1,2].map(r=>[0,1,2].map(k=>`<circle cx="${38+k*22}" cy="${62+r*24}" r="8" fill="${l}"/>`).join('')).join('')}`),
- pillow:(c,l)=>S(`<path d="M10 70q50-22 100 0v50q-50 18-100 0z" fill="${c}"/><path d="M10 70q50-22 100 0" stroke="${l}" stroke-width="4" fill="none"/><path d="M26 96q34-10 68 0" stroke="#fff" stroke-width="3" opacity=".5" fill="none"/>`),
- roller:(c,l)=>S(`<rect x="54" y="60" width="12" height="76" rx="6" fill="${l}"/><rect x="24" y="30" width="72" height="34" rx="17" fill="${c}"/><rect x="32" y="36" width="40" height="7" rx="3" fill="#fff" opacity=".5"/>`),
- guasha:(c,l)=>S(`<path d="M60 128c-34-20-48-46-40-70 8-22 32-20 40-4 8-16 32-18 40 4 8 24-6 50-40 70z" fill="${c}"/><path d="M36 64c6-10 16-10 20 0" stroke="#fff" stroke-width="4" opacity=".55" fill="none"/><circle cx="60" cy="78" r="5" fill="${l}"/>`),
- scrub:(c,l)=>S(`<circle cx="60" cy="86" r="44" fill="${c}"/>${Array.from({length:19},(_,i)=>{const a=i*2.4,r=i<1?0:12+(i%3)*10;return `<circle cx="${60+Math.cos(a)*r}" cy="${86+Math.sin(a)*r}" r="3.4" fill="${l}"/>`}).join('')}`),
- mask:(c,l)=>S(`<path d="M60 22c30 0 44 26 44 54 0 32-22 58-44 58S16 108 16 76c0-28 14-54 44-54z" fill="${c}"/><ellipse cx="44" cy="70" rx="10" ry="6" fill="#2b1520"/><ellipse cx="76" cy="70" rx="10" ry="6" fill="#2b1520"/>${[[34,94],[50,104],[70,104],[86,94],[60,50],[40,48],[80,48]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="3.5" fill="${l}"/>`).join('')}`),
- wand:(c,l)=>S(`<rect x="46" y="40" width="28" height="96" rx="14" fill="${c}"/><circle cx="60" cy="30" r="18" fill="${l}"/><circle cx="60" cy="80" r="6" fill="#fff" opacity=".8"/><rect x="52" y="48" width="6" height="70" rx="3" fill="#fff" opacity=".35"/>`),
- rod:(c,l)=>S(`<path d="M18 100q42-90 84 0" stroke="${c}" stroke-width="18" fill="none" stroke-linecap="round"/><path d="M30 92q30-64 60 0" stroke="#fff" stroke-width="3" opacity=".45" fill="none"/><circle cx="18" cy="104" r="9" fill="${l}"/><circle cx="102" cy="104" r="9" fill="${l}"/>`),
+ pillow:(c,l)=>S(`<path d="M10 72q50-24 100 0v50q-50 18-100 0z" fill="${c}"/><path d="M10 72q50-24 100 0" stroke="${l}" stroke-width="4" fill="none"/><path d="M26 98q34-10 68 0" stroke="#fff" stroke-width="3" opacity=".55" fill="none"/>`),
+ roller:(c,l)=>S(`<rect x="54" y="60" width="12" height="76" rx="6" fill="${l}"/><rect x="24" y="30" width="72" height="34" rx="17" fill="${c}"/><rect x="32" y="36" width="40" height="7" rx="3" fill="#fff" opacity=".55"/>`),
+ guasha:(c,l)=>S(`<path d="M60 128c-34-20-48-46-40-70 8-22 32-20 40-4 8-16 32-18 40 4 8 24-6 50-40 70z" fill="${c}"/><path d="M36 64c6-10 16-10 20 0" stroke="#fff" stroke-width="4" opacity=".6" fill="none"/><circle cx="60" cy="78" r="5" fill="${l}"/>`),
+ scrub:(c,l)=>S(`<circle cx="60" cy="86" r="44" fill="${c}"/>${Array.from({length:19},(_,i)=>{const a=i*2.4,r=i<1?0:12+(i%3)*10;return `<circle cx="${(60+Math.cos(a)*r).toFixed(1)}" cy="${(86+Math.sin(a)*r).toFixed(1)}" r="3.4" fill="${l}"/>`}).join('')}`),
+ mask:(c,l)=>S(`<path d="M60 22c30 0 44 26 44 54 0 32-22 58-44 58S16 108 16 76c0-28 14-54 44-54z" fill="${c}"/><ellipse cx="44" cy="70" rx="10" ry="6" fill="#2b1a1a"/><ellipse cx="76" cy="70" rx="10" ry="6" fill="#2b1a1a"/>${[[34,94],[50,104],[70,104],[86,94],[60,50],[40,48],[80,48]].map(([x,y])=>`<circle cx="${x}" cy="${y}" r="3.5" fill="${l}"/>`).join('')}`),
+ wand:(c,l)=>S(`<rect x="46" y="40" width="28" height="96" rx="14" fill="${c}"/><circle cx="60" cy="30" r="18" fill="${l}"/><circle cx="60" cy="80" r="6" fill="#fff" opacity=".85"/><rect x="52" y="48" width="6" height="70" rx="3" fill="#fff" opacity=".35"/>`),
+ rod:(c,l)=>S(`<path d="M18 100q42-90 84 0" stroke="${c}" stroke-width="18" fill="none" stroke-linecap="round"/><path d="M30 92q30-64 60 0" stroke="#fff" stroke-width="3" opacity=".5" fill="none"/><circle cx="18" cy="104" r="9" fill="${l}"/><circle cx="102" cy="104" r="9" fill="${l}"/>`),
  bomb:(c,l)=>S(`<circle cx="42" cy="104" r="28" fill="${c}"/><circle cx="82" cy="100" r="24" fill="${l}"/><circle cx="62" cy="70" r="22" fill="${c}" opacity=".8"/><circle cx="34" cy="96" r="5" fill="#fff" opacity=".6"/>`),
  fridge:(c,l)=>S(`<rect x="22" y="30" width="76" height="104" rx="14" fill="${c}"/><rect x="30" y="40" width="60" height="84" rx="8" fill="${l}"/><rect x="80" y="62" width="5" height="34" rx="2" fill="#fff"/><rect x="36" y="58" width="22" height="7" rx="3" fill="#fff" opacity=".7"/>`),
- drawers:(c,l)=>S(`${[0,1,2].map(i=>`<rect x="18" y="${44+i*30}" width="84" height="26" rx="6" fill="${c}" opacity="${.65+i*.15}"/><rect x="50" y="${54+i*30}" width="20" height="5" rx="2" fill="${l}"/>`).join('')}`),
+ drawers:(c,l)=>S(`${[0,1,2].map(i=>`<rect x="18" y="${44+i*30}" width="84" height="26" rx="6" fill="${c}" opacity="${.6+i*.18}"/><rect x="50" y="${54+i*30}" width="20" height="5" rx="2" fill="${l}"/>`).join('')}`),
  book:(c,l)=>S(`<rect x="26" y="26" width="70" height="106" rx="8" fill="${c}"/><rect x="26" y="26" width="12" height="106" rx="4" fill="${l}"/><path d="M60 62c4-8 16-8 16 2 0 10-16 18-16 18s-16-8-16-18c0-10 12-10 16-2z" fill="#fff" opacity=".85"/>`),
  kit:(c,l)=>S(`<rect x="16" y="60" width="88" height="72" rx="10" fill="${c}"/><rect x="54" y="60" width="12" height="72" fill="${l}"/><rect x="12" y="48" width="96" height="18" rx="6" fill="${c}"/><path d="M60 48c-14-20-30-8-18 0zm0 0c14-20 30-8 18 0z" fill="${l}"/>`)
 };
-const P={
- lipmask:{n:'LANEIGE Lip Sleeping Mask',a:'B07XXPHQZK',s:'jar',c:['#f472b6','#be185d'],why:'The overnight lip treatment people actually finish.',use:'Swipe a thick layer on last thing at night.'},
- silk:{n:'Mulberry silk pillowcase',a:'B01LVU7THF',s:'pillow',c:['#fbcfe8','#ec4899'],why:'Less tug on hair and skin while you sleep.',use:'Wash cool and gentle; skip the fabric softener.'},
- ice:{n:'Ice roller',a:'B0CP39FLF2',s:'roller',c:['#7dd3fc','#0e7490'],why:'Cold, quick de-puff for tired morning eyes.',use:'Keep it in the freezer, roll outward for 2 to 5 minutes.'},
- guasha:{n:'Gua sha tool',a:'B0BS9KTVRZ',s:'guasha',c:['#cbd5e1','#64748b'],why:'A five-minute ritual that helps with morning puffiness.',use:'Always over oil or serum, light pressure, strokes outward.'},
- bath:{n:'Bath bomb gift set',a:'B01MFGN8S5',s:'bomb',c:['#f9a8d4','#c084fc'],why:'A whole self-care night in one box.',use:'One per bath; lights low, phone away.'},
- kit:{n:'SKIN1004 Centella travel kit',a:'B09S6JKB52',s:'kit',c:['#a7f3d0','#047857'],why:'A gentle starter routine for sensitive skin.',use:'Try one product at a time to see what her skin likes.'},
- scrub:{n:'Tree Hut body scrub',a:'B01CGRN8IU',s:'jar',c:['#fda4af','#9f1239'],why:'Smooth skin in one shower, and it smells like a spa.',use:'On damp skin, 2 to 3 times a week, then moisturise.'},
- fridge:{n:'Skincare mini fridge',a:'B0BQ5DGSXH',s:'fridge',c:['#fecdd3','#fff1f2'],why:'Keeps rollers and gel products cool and in one place.',use:'Set it to cool, not cold; leave room for air to move.'},
- drawers:{n:'Clear stackable makeup drawers',a:'B0F3NLJCSP',s:'drawers',c:['#e9d5ff','#7e22ce'],why:'Everything visible, nothing lost at the back.',use:'One drawer each for AM, PM and tools.'},
- cerave:{n:'CeraVe Hydrating Cleanser',a:'B07RL88DD2',s:'pump',c:['#bfdbfe','#1d4ed8'],why:'Gentle, non-stripping cleanse that suits most skin.',use:'Massage onto damp skin for 30 seconds, rinse lukewarm.'},
- vitc:{n:'TruSkin Vitamin C Serum',a:'B01M4MCUAF',s:'dropper',c:['#fdba74','#c2410c'],why:'A brightening step for the morning.',use:'3 to 4 drops after cleansing, always followed by SPF.'},
- nia:{n:'The Ordinary Niacinamide 10% + Zinc',a:'B0DDQ4MSXS',s:'dropper',c:['#e7e5e4','#57534e'],why:'Budget serum for oil and visible pores.',use:'A few drops before moisturiser; patch test first.'},
- spf:{n:'La Roche-Posay Anthelios SPF',a:'B0FBS4C2FY',s:'tube',c:['#fde68a','#b45309'],why:'The step that protects everything else you do.',use:'Last step every morning; reapply when you are outdoors.'},
- snail:{n:'COSRX Snail Mucin 96% Essence',a:'B00PBX3L7K',s:'dropper',c:['#ddd6fe','#6d28d9'],why:'Bouncy hydration for that glass-skin look.',use:'Pat in after cleansing, before moisturiser.'},
- patch:{n:'Mighty Patch Original',a:'B074PVTPBW',s:'patch',c:['#fef3c7','#d97706'],why:'Overnight help for a single spot.',use:'On clean, dry skin before bed; peel off in the morning.'},
- rod:{n:'Heatless curling rod',a:'B0995G69ZJ',s:'rod',c:['#fbcfe8','#db2777'],why:'Soft curls overnight with no heat.',use:'Wrap slightly damp hair, sleep, unwrap in the morning.'},
- scrubber:{n:'Silicone face scrubber',a:'B08GZJ3XH8',s:'scrub',c:['#f9a8d4','#9d174d'],why:'A gentler second cleanse than a rough cloth.',use:'Small circles with cleanser, rinse and air-dry.'},
- led:{n:'LED light therapy mask',a:'B0DYG4Q6PL',s:'mask',c:['#f1f5f9','#ef4444'],why:'An at-home red-light routine (premium pick).',use:'Follow the device timing; consistency matters more than length.'},
- micro:{n:'Microcurrent facial device',a:'B0GY4KRM1R',s:'wand',c:['#e2e8f0','#be185d'],why:'An at-home facial lifting routine.',use:'Use with the conductive gel; follow the device instructions.'},
- journal:{n:'Self-care journal',a:'B09HC96K78',s:'book',c:['#f9a8d4','#831843'],why:'Glow from the inside: five minutes of reflection.',use:'Morning intention, evening gratitude.'}
-};
-const art=k=>{const p=P[k];return shapes[p.s](p.c[0],p.c[1])};
-/* guides: one per post, headline matches the post's hook */
-const G=[
- {id:'gifts-she-will-use',t:"3 skincare gifts she'll actually use",k:'From the Reel · 23 Nov',l:"Skip the random gift set. These three get used every single day.",p:['lipmask','silk','ice'],nx:'gifts-under-50'},
- {id:'gifts-under-50',t:'Glow gifts under $50',k:'From the carousel · 25 Nov',l:"Six gifts that fit a real routine. Prices move fast this week, so check each listing.",p:['lipmask','silk','ice','guasha','bath','kit'],nx:'self-care-night'},
- {id:'ice-roller',t:'Puffy morning face? Give me five minutes.',k:'From the Reel · 26 Nov',l:'The cold de-puff routine from the video, step by step.',p:['ice'],steps:['Keep the roller in the freezer overnight.','Start under the eyes and roll outward, never toward the nose.','Move to the cheeks, then along the jaw, still outward.','Two to five minutes is plenty. Results vary from person to person.'],nx:'am-routine'},
- {id:'vanity-glow-up',t:'Your vanity, but make it calm',k:'From the carousel · 27 Nov',l:'Two upgrades did most of the work. Then sort by routine: AM, PM, tools.',p:['drawers','fridge'],nx:'tools'},
- {id:'self-care-night',t:'My Saturday self-care night',k:'From the Reel · 29 Nov',l:'Twenty minutes, phone face down. Everything from the routine, in order.',p:['bath','scrub','lipmask','silk'],nx:'pm-routine'},
- {id:'am-routine',t:'A 4-step morning routine',k:'Routine guide',l:'Cleanse, treat, protect. The derm-approved basics.',p:['cerave','vitc','nia','spf'],nx:'pm-routine'},
- {id:'pm-routine',t:'The night routine for glass skin',k:'Routine guide',l:'Hydrate, repair, and let sleep do the rest.',p:['snail','patch','lipmask','silk','rod'],nx:'tools'},
- {id:'tools',t:'Skincare tools worth the drawer space',k:'Tools guide',l:'From a five-minute freebie ritual to the premium devices.',p:['ice','guasha','scrubber','led','micro'],nx:'gifts-under-50'},
- {id:'shop-all',t:'Everything I recommend',k:'Shop all',l:'Every product from my posts, in one place.',p:Object.keys(P),nx:'home'}
-];
-const byId=Object.fromEntries(G.map(g=>[g.id,g]));
-const esc=s=>s.replace(/&/g,'&amp;').replace(/</g,'&lt;');
-const shelf=keys=>`<div class="shelf"><div class="row">${keys.slice(0,4).map(art).join('')}</div><div class="plank"></div></div>`;
-const disc=`<p class="disc">As an Amazon Associate I earn from qualifying purchases. Links open Amazon US; prices and availability change, so check the listing before you buy.</p>`;
-const card=g=>`<a class="card" href="#${g.id}"><div class="pic">${g.p.slice(0,3).map(art).join('')}</div><b>${esc(g.t)}</b><span>${esc(g.k)}</span></a>`;
-const home=()=>`<section class="hero"><div class="in"><p class="kick">Skincare &amp; self-care, simplified</p><h1>Find the picks from the post you just saw</h1><p class="lede">Tap the guide that matches the post. Every product is one I recommend, with how to use it.</p>${shelf(['lipmask','ice','snail','silk'])}</div></section>
-<main>${disc}<h2>From recent posts</h2><div class="grid">${G.slice(0,5).map(card).join('')}</div><h2>Routines and tools</h2><div class="grid">${G.slice(5).map(card).join('')}</div></main>`;
-const guide=g=>`<section class="hero"><div class="in"><p class="kick">${esc(g.k)}</p><h1>${esc(g.t)}</h1><p class="lede">${esc(g.l)}</p>${shelf(g.p)}</div></section>
-<main>${disc}${g.steps?`<h2>How to do it</h2><ol class="steps">${g.steps.map(s=>`<li>${esc(s)}</li>`).join('')}</ol><h2>What I use</h2>`:''}
-<ol class="picks">${g.p.map(k=>{const p=P[k];return `<li class="pick"><div class="art">${art(k)}</div><div><h3>${esc(p.n)}</h3><p>${esc(p.why)}</p><div class="use"><b>How to use:</b> ${esc(p.use)}</div><a class="btn" rel="sponsored noopener" target="_blank" href="${AMZ(p.a)}">View on Amazon</a></div></li>`}).join('')}</ol>
-${g.nx&&byId[g.nx]?`<div class="next"><p>Next up</p>${card(byId[g.nx])}</div>`:''}</main>`;
-const root=document.getElementById('view');
-const render=()=>{const id=location.hash.slice(1);const g=byId[id];root.innerHTML=g?guide(g):home();document.title=(g?g.t+' · ':'')+'The Glow Theory';window.scrollTo(0,0)};
-window.addEventListener('hashchange',render);render();
+/* shade a hex toward white (p>0) or black (p<0) */
+const shade=(h,p)=>{const n=parseInt(h.slice(1),16);let r=n>>16,g=n>>8&255,b=n&255;const t=p<0?0:255,q=Math.abs(p);r=Math.round(r+(t-r)*q);g=Math.round(g+(t-g)*q);b=Math.round(b+(t-b)*q);return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1)};
+const art=(c,i)=>SH[c.shape]([c.h,shade(c.h,-.15),shade(c.a,.25),c.a,shade(c.h,.3)][i%5],[c.a,c.a,shade(c.a,-.2),shade(c.h,.2),c.a][i%5]);
+const vars=c=>`--a:${c.a};--t:${c.t};--h:${c.h}`;
+const disclosure='<p class="disc-note">As an Amazon Associate I earn from qualifying purchases. Buyer feedback below is summarised in our own words from public reviews. Prices change, so check Amazon for today\'s price.</p>';
+const buy=(p,label)=>`<a class="btn" rel="sponsored nofollow noopener" target="_blank" href="${amz(p.a)}">${label||'Check price on Amazon'} <span aria-hidden="true">→</span></a>`;
+const groupOf=id=>D.groups.find(g=>g.ids.includes(id));
+const quick=c=>{const it=c.items,o=it[0];const rest=it.slice(1);const bud=rest.slice().sort((x,y)=>x.tier-y.tier||y.feat-x.feat)[0];const prem=rest.filter(x=>x!==bud).sort((x,y)=>y.tier-x.tier||y.feat-x.feat)[0];return [['Best overall',o],['Best on a budget',bud],[prem.tier>=4?'Best premium':'Most features',prem]]};
+const mapSvg=(c,W,H)=>{const pad={l:46,r:16,t:16,b:40},iw=W-pad.l-pad.r,ih=H-pad.t-pad.b,narrow=W<520;
+ const pts=c.items.map((p,i)=>{const jx=((i%3)-1)*.22,jy=(((i+1)%3)-1)*.18;return {p,i,x:pad.l+((p.tier-1+jx+.5)/5)*iw,y:pad.t+ih-((p.feat-1+jy+.5)/5)*ih}});
+ const lab=pts.map(o=>({o,x:o.x+12,y:o.y+4,t:narrow?o.p.b.split(' ')[0]:o.p.b})).sort((a,b)=>a.y-b.y);
+ for(let k=1;k<lab.length;k++)for(let j=0;j<k;j++){const A=lab[j],B=lab[k];if(Math.abs(A.y-B.y)<16&&Math.abs(A.x-B.x)<(A.t.length*7.2)){B.y=A.y+16}}
+ lab.forEach(L=>{const w=L.t.length*7.2;if(L.x+w>W-4){L.x=L.o.x-12-w}});
+ let s=`<rect x="${pad.l}" y="${pad.t}" width="${iw}" height="${ih}" rx="12" fill="${c.t}"/>`;
+ s+=`<line x1="${pad.l+iw/2}" y1="${pad.t}" x2="${pad.l+iw/2}" y2="${pad.t+ih}" stroke="${c.h}" stroke-dasharray="4 5"/><line x1="${pad.l}" y1="${pad.t+ih/2}" x2="${pad.l+iw}" y2="${pad.t+ih/2}" stroke="${c.h}" stroke-dasharray="4 5"/>`;
+ s+=`<text x="${pad.l}" y="${H-12}" font-size="12" fill="#6B6259">Budget</text><text x="${pad.l+iw}" y="${H-12}" font-size="12" fill="#6B6259" text-anchor="end">Premium</text>`;
+ s+=`<text transform="translate(16 ${pad.t+ih}) rotate(-90)" font-size="12" fill="#6B6259">Simple</text><text transform="translate(16 ${pad.t}) rotate(-90)" font-size="12" fill="#6B6259" text-anchor="end">Feature-rich</text>`;
+ pts.forEach(o=>{s+=`<circle cx="${o.x}" cy="${o.y}" r="${o.i===0?9:7}" fill="${o.i===0?c.a:'#fff'}" stroke="${c.a}" stroke-width="3"/>`});
+ lab.forEach(L=>{s+=`<text x="${L.x}" y="${L.y}" font-size="13" font-weight="700" fill="#1A1714" font-family="Manrope,sans-serif">${esc(L.t)}</text>`});
+ return s};
+const gumroad=id=>(D.gumroad||[]).filter(g=>!g.cats||g.cats.includes(id)||g.cats.includes('*'));
+const gumBlock=id=>{const g=gumroad(id);if(!g.length)return '';return `<section class="block"><h2>From the Glow Theory shop</h2><p class="lead">Printables and planners I make, to go with this routine.</p><div class="slider">${g.map(x=>`<a class="gp" href="${esc(x.url)}" target="_blank" rel="noopener"><small>Digital download</small><b>${esc(x.name)}</b><span>${esc(x.blurb||'')}</span><em>View on Gumroad →</em></a>`).join('')}</div></section>`};
+const catCard=id=>{const c=D.cats[id];return `<a class="cc" href="#${id}" style="${vars(c)}"><div class="pic" style="background:${c.t}">${[0,1,2].map(i=>art(c,i)).join('')}</div><div class="tx"><b>${esc(c.name)}</b><span>${esc(c.title)}</span><em style="color:${c.a}">Compare ${c.items.length} picks →</em></div></a>`};
+const hero=(c,kick,title,sub,extra)=>`<section class="hero"><div class="wrap"><div><p class="kick">${esc(kick)}</p><h1>${esc(title)}</h1><p class="sub">${esc(sub)}</p>${extra||''}</div><div class="stage"><div class="disc"></div><div class="row">${[1,0,2].map(i=>art(c,i)).join('')}</div></div></div></section>`;
+
+const viewCat=id=>{const c=D.cats[id],g=groupOf(id);
+ const q=quick(c);
+ const chips=`<div class="chips"><a class="chip" href="#${id}--compare"><b>Compare all ${c.items.length}</b></a><a class="chip" href="#${id}--how">How to use it</a><a class="chip" href="#${id}--picks">Pros and cons</a></div>`;
+ const steps=`<ol class="steps">${c.steps.map((s,i)=>`<li><div class="n">${c.decide?'?':i+1}</div><div><b>${esc(s[0])}</b><span>${esc(s[1])}</span></div></li>`).join('')}</ol>`;
+ const rows=[['Best for',p=>esc(p.best)],['Format',p=>esc(p.fmt)],['Buyers love',p=>esc(p.love[0])],['Watch out',p=>esc(p.watch[0])],['',p=>buy(p,'Check price')]];
+ const table=`<div class="scroll"><table><thead><tr><th></th>${c.items.map(p=>`<th scope="col">${esc(p.b)}<br><small style="font:500 12px Manrope;color:#6B6259">${esc(p.n)}</small></th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr><th scope="row">${r[0]}</th>${c.items.map(p=>`<td>${r[1](p)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+ const cards=c.items.map((p,i)=>`<article class="pc" id="${id}--${p.a}"><div class="art"><span class="rank">#${i+1}</span>${art(c,i)}</div><div class="body"><span class="badge">${esc(p.best)}</span><h3>${esc(p.n)}</h3><div class="brand">${esc(p.b)} · ${esc(p.fmt)}</div><p class="angle">${esc(p.angle)}</p><div class="pros"><div><h4>Why buyers love it</h4><ul class="yes">${p.love.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div><h4>Worth knowing</h4><ul class="no">${p.watch.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div><div class="why"><b>Choose it if:</b> ${esc(p.why)}</div>${buy(p)}<span class="meta">Opens Amazon US in a new tab</span></div></article>`).join('');
+ const related=(g?g.ids:[]).filter(x=>x!==id).slice(0,3);
+ return `<div style="${vars(c)}">${hero(c,g?g.name:'Shop',c.title,c.sub,chips)}<main><div class="wrap">${disclosure}
+ <section class="block"><h2>Quick picks</h2><p class="lead">Short on time? Start here.</p><div class="qp">${q.map(([t,p])=>`<div class="c"><span class="tag">${t}</span><h3>${esc(p.n)}</h3><p>${esc(p.angle)}</p>${buy(p)}</div>`).join('')}</div></section>
+ <section class="block" id="${id}--how"><h2>${c.decide?'Which one should she get?':'How to use it'}</h2><p class="lead">${c.decide?'Answer one question and the right box picks itself.':'The routine, in four steps.'}</p><div class="demo">${steps}${c.note?`<p class="note">${esc(c.note)}</p>`:''}</div></section>
+ <section class="block"><h2>Where each one sits</h2><p class="lead">Relative price against features. Filled dot is our top pick.</p><div class="mapwrap"><div class="fig" data-map="${id}"><svg role="img" aria-label="Price versus features map for ${esc(c.name)}"></svg></div><p class="legend">Price tiers are relative within this category, not exact prices.</p></div></section>
+ <section class="block" id="${id}--compare"><h2>Side-by-side comparison</h2><p class="lead">Scroll sideways on your phone.</p>${table}</section>
+ <section class="block" id="${id}--picks"><h2>The picks, honestly</h2><p class="lead">What buyers praise, what they complain about, and who each one suits.</p><div class="cards">${cards}</div></section>
+ <section class="block"><h2>What to look for</h2><ul class="look">${c.look.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>
+ ${gumBlock(id)}
+ ${related.length?`<section class="block"><h2>Pairs well with</h2><div class="grid">${related.map(catCard).join('')}</div></section>`:''}
+ </div></main></div>`};
+
+const viewCol=key=>{const k=D.collections[key];const first=D.cats[k.cats[0]];
+ return `<div style="${vars(first)}">${hero(first,k.kick,k.title,k.sub,'')}<main><div class="wrap">${disclosure}
+ <section class="block"><h2>The picks</h2><p class="lead">Our top choice in each step. Tap "Compare" to see every option.</p>
+ ${k.cats.map((id,i)=>{const c=D.cats[id],p=c.items[0];return `<div class="stepcard" style="${vars(c)}"><div class="num" style="background:${c.a}">${i+1}</div><div><p class="kick">${esc(c.name)}</p><h3>${esc(p.n)}</h3><p class="angle" style="font:italic 17px/1.4 Fraunces,serif;margin:6px 0 8px">${esc(p.angle)}</p><p style="margin:0;color:#6B6259;font-size:14px">Buyers love: ${esc(p.love.slice(0,2).join('; ').toLowerCase())}.</p><div class="actions">${buy(p)}<a class="btn ghost" href="#${id}">Compare ${c.items.length} options</a></div></div></div>`}).join('')}
+ </section>${gumBlock(k.cats[0])}</div></main></div>`};
+
+const viewHome=()=>{const c={shape:'dropper',a:'#1A1714',t:'#F1ECE4',h:'#D8CCBB'};
+ const mix=['lip-masks','ice-rollers','snail-mucin'].map((id,i)=>art(D.cats[id],i));
+ return `<section class="hero"><div class="wrap"><div><p class="kick">Skincare &amp; self-care, simplified</p><h1>Find the right one, not just a good one</h1><p class="sub">Every category compared side by side, with what real buyers love and what they don't.</p><div class="how"><div><b>Real feedback</b>Summarised from what buyers actually say.</div><div><b>Honest trade-offs</b>Every pick shows its downsides.</div><div><b>Picked for you</b>"Choose it if" tells you who it suits.</div></div></div><div class="stage"><div class="disc"></div><div class="row">${mix.join('')}</div></div></div></section>
+ <main><div class="wrap">${disclosure}<h2 class="group">From recent posts</h2><div class="grid">${Object.entries(D.collections).map(([k,v])=>{const c=D.cats[v.cats[0]];return `<a class="cc" href="#${k}"><div class="pic" style="background:${c.t}">${v.cats.slice(0,3).map((id,i)=>art(D.cats[id],i)).join('')}</div><div class="tx"><b>${esc(v.title)}</b><span>${esc(v.kick)}</span><em style="color:${c.a}">See the picks →</em></div></a>`}).join('')}</div>
+ ${D.groups.map(g=>`<h2 class="group">${esc(g.name)}</h2><div class="grid">${g.ids.map(catCard).join('')}</div>`).join('')}${gumBlock('*')}</div></main>`};
+
+const app=document.getElementById('app');let ro=null;
+const drawMaps=()=>{if(ro)ro.disconnect();ro=new ResizeObserver(es=>{for(const e of es){const f=e.target,c=D.cats[f.dataset.map],W=f.clientWidth,H=f.clientHeight;const s=f.querySelector('svg');s.setAttribute('viewBox',`0 0 ${W} ${H}`);s.innerHTML=mapSvg(c,W,H)}});document.querySelectorAll('[data-map]').forEach(f=>ro.observe(f))};
+let last='';
+const route=()=>{let h=decodeURIComponent(location.hash.slice(1));const anchor=h.includes('--')?h:'';let key=h.split('--')[0];if(key in D.aliases)key=D.aliases[key];
+ if(key!==last){last=key;let html,title;if(D.cats[key]){html=viewCat(key);title=D.cats[key].name}else if(D.collections[key]){html=viewCol(key);title=D.collections[key].title}else{html=viewHome();title=''}
+  app.innerHTML=html;document.title=(title?title+' · ':'')+'The Glow Theory';drawMaps();if(!anchor)window.scrollTo(0,0)}
+ if(anchor){const el=document.getElementById(anchor);if(el)el.scrollIntoView({behavior:'smooth'})}};
+window.addEventListener('hashchange',route);route();
 }
 </script>
 </body>
