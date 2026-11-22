@@ -180,11 +180,21 @@ td{background:color-mix(in srgb,var(--t) 55%,#fff)}
 .gp{scroll-snap-align:start;background:#1A1714;color:#fff;border-radius:20px;padding:12px 12px 18px;display:flex;flex-direction:column;gap:8px;text-decoration:none}
 .gp img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;background:#2a2622;margin-bottom:6px}
 .gp i{font-style:normal;font-weight:800;font-size:13px;background:#fff;color:#1A1714;border-radius:99px;padding:3px 10px;align-self:flex-start}
-.gp>small,.gp>b,.gp>span,.gp>em,.gp>i{margin-left:8px;margin-right:8px}
+/*gp*/.gp>small,.gp>b,.gp>span,.gp>i{margin-left:8px;margin-right:8px}
 .gp small{font-size:12px;font-weight:800;color:var(--h)}
 .gp b{font:600 20px/1.2 Fraunces,serif}
 .gp span{font-size:14px;opacity:.8;flex:1}
-.gp em{font-style:normal;font-weight:800;color:#fff;border-top:1px solid rgba(255,255,255,.15);padding-top:10px}
+.gp .go{font-weight:800;color:#fff;text-decoration:none;border-top:1px solid rgba(255,255,255,.15);padding-top:10px;margin:0 8px}
+.gp img{display:block}
+.peek{margin:2px 8px 0;font:800 13px Manrope,sans-serif;background:transparent;color:var(--h);border:1px solid rgba(255,255,255,.25);border-radius:99px;padding:8px 12px;cursor:pointer;align-self:flex-start}
+.peek:hover{background:rgba(255,255,255,.08)}
+.lbx{position:fixed;inset:0;z-index:50;background:rgba(15,12,10,.86);display:flex;align-items:center;justify-content:center;padding:16px}
+.lbi{display:flex;flex-direction:column;align-items:center;gap:10px;max-height:100%}
+.lbi img{max-height:calc(100vh - 140px);max-width:100%;border-radius:10px;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.lbb{display:flex;align-items:center;gap:14px;color:#fff;font:700 14px Manrope,sans-serif}
+.lbb button,.lbx-x{background:#fff;color:#1A1714;border:0;border-radius:99px;width:40px;height:40px;font-size:22px;cursor:pointer}
+.lbx-x{position:absolute;top:14px;right:14px}
+.lbi .go{background:#fff;color:#1A1714;border-radius:99px;padding:10px 18px;font:800 14px Manrope,sans-serif;text-decoration:none}
 /* home */
 .how{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:24px}
 .how div{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 16px;font-size:14px}
@@ -213,7 +223,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 44px;font-size:13px;color
 <header class="top"><div class="wrap"><a class="logo" href="#"><i></i>The Glow Theory</a><a class="navlink" href="#">All categories</a></div></header>
 <div id="app"></div>
 <footer><div class="wrap">As an Amazon Associate I earn from qualifying purchases. Buyer feedback is summarised in our own words; prices and availability change, so check Amazon before you buy. Follow <a href="https://www.instagram.com/theglowtheory.edit/">@theglowtheory.edit</a>.</div></footer>
-<script src="shop-data.js?v=20261122d"></script>
+<script src="shop-data.js?v=20261122e"></script>
 <script>
 {
 const D=window.GLOW,TAG='glowtheoryig-20';
@@ -268,7 +278,9 @@ const mapSvg=(c,W,H)=>{const pad={l:46,r:16,t:16,b:40},iw=W-pad.l-pad.r,ih=H-pad
  lab.forEach(L=>{s+=`<text x="${L.x}" y="${L.y}" font-size="13" font-weight="700" fill="#1A1714" font-family="Manrope,sans-serif">${esc(L.t)}</text>`});
  return s};
 const gumroad=id=>(D.gumroad||[]).filter(g=>id==='*'||!g.cats||g.cats.includes(id)||g.cats.includes('*'));
-const gumBlock=id=>{const g=gumroad(id);if(!g.length)return '';return `<section class="block"><h2>From the Glow Theory shop</h2><p class="lead">Printables and planners made by The Glow Theory — to keep the routine going.</p><div class="slider">${g.map(x=>`<a class="gp" href="${esc(x.url)}" target="_blank" rel="noopener">${x.img?`<img src="${esc(x.img)}" alt="${esc(x.name)} cover" loading="lazy">`:''}<small>Printable · instant download</small><b>${esc(x.name)}</b><span>${esc(x.sub||x.blurb||'')}</span><i>${esc(x.price||'')}</i><em>View on Gumroad →</em></a>`).join('')}</div></section>`};
+const gumBlock=id=>{const g=gumroad(id);if(!g.length)return '';return `<section class="block"><h2>From the Glow Theory shop</h2><p class="lead">Printables and planners made by The Glow Theory — to keep the routine going.</p><div class="slider">${g.map(x=>`<div class="gp">${x.img?`<a href="${esc(x.url)}" target="_blank" rel="noopener"><img src="${esc(x.img)}" alt="${esc(x.name)} cover" loading="lazy"></a>`:''}<small>Printable · instant download</small><b>${esc(x.name)}</b><span>${esc(x.sub||x.blurb||'')}</span><i>${esc(x.price||'')}</i>${x.pv&&x.pv.length?`<button class="peek" type="button" data-peek="${esc(x.url)}">Peek inside · ${x.pv.length} pages</button>`:''}<a class="go" href="${esc(x.url)}" target="_blank" rel="noopener">View on Gumroad →</a></div>`).join('')}</div></section>`};
+const peek=u=>{const x=(D.gumroad||[]).find(g=>g.url===u);if(!x)return;let k=0;const m=document.createElement('div');m.className='lbx';m.setAttribute('role','dialog');m.setAttribute('aria-label',x.name+' preview');const draw=()=>{m.innerHTML=`<div class="lbi"><img src="${esc(x.pv[k])}" alt="${esc(x.name)} sample page ${k+1}"><div class="lbb"><button type="button" data-n="-1" aria-label="Previous page">‹</button><span>${k+1} / ${x.pv.length}</span><button type="button" data-n="1" aria-label="Next page">›</button></div><a class="go" href="${esc(x.url)}" target="_blank" rel="noopener">Get the full ${esc(x.name)} · ${esc(x.price||'')}</a></div><button class="lbx-x" type="button" aria-label="Close preview">×</button>`};draw();m.addEventListener('click',e=>{const n=e.target.closest('[data-n]');if(n){k=(k+ +n.dataset.n+x.pv.length)%x.pv.length;draw();return}if(e.target===m||e.target.closest('.lbx-x'))m.remove()});document.addEventListener('keydown',function f(e){if(!document.body.contains(m)){document.removeEventListener('keydown',f);return}if(e.key==='Escape')m.remove();if(e.key==='ArrowRight'||e.key==='ArrowLeft'){k=(k+(e.key==='ArrowRight'?1:-1)+x.pv.length)%x.pv.length;draw()}});document.body.appendChild(m)};
+document.addEventListener('click',e=>{const p=e.target.closest('[data-peek]');if(p){e.preventDefault();peek(p.dataset.peek)}});
 const catCard=id=>{const c=D.cats[id];return `<a class="cc" href="#${id}" style="${vars(c)}">${PH[id]?`<div class="pic photo" role="img" aria-label="${esc(PH[id][3])}" style="background-image:url('${pimg(id,500)}')"></div>`:`<div class="pic" style="background:${c.t}">${monos([[c,0],[c,1],[c,2]])}</div>`}<div class="tx"><b>${esc(c.name)}</b><span>${esc(c.title)}</span><em style="color:${c.a}">Compare ${c.items.length} picks →</em></div></a>`};
 const ini=b=>b.replace(/[^A-Za-z0-9 ]/g,'').trim().charAt(0).toUpperCase()||'•';
 const label=(c,i)=>{const p=c.items[i];return `<div class="lb" style="${pv(c,i)}"><span class="mono">${esc(ini(p.b))}</span><span class="lb-b">${esc(p.b)}</span><span class="lb-n">${esc(p.n)}</span><span class="lb-f">${esc(p.fmt)}</span><span class="lb-tag">${esc(p.best)}</span></div>`};
