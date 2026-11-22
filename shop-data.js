@@ -537,7 +537,7 @@ aliases: {"ice-roller":"ice-rollers","shop-all":""}
 };
 /* Category hero photos: Unsplash licence (free commercial use). Illustrative only, not the exact products. */
 window.GLOW.photos = {
- "gua-sha":["photo-1578747763484-51b21a33e4fa","contentpixie","white-face-massager-j1WYUNgLbOk","A white face massage tool"],
+ "gua-sha":["photo-1575248208233-c777219911e2","contentpixie","black-ink-on-white-surface-near-bottle-7K4mlDH6wZo","A gua sha stone beside a serum bottle"],
  "ice-rollers":["photo-1578747763484-51b21a33e4fa","contentpixie","white-face-massager-j1WYUNgLbOk","A white face roller tool"],
  "microcurrent":["photo-1598901986949-f593ff2a31a6","tinymountain","massage-therapy-in-dim-warm-light-WAm_HaI4W2E","Hands giving a facial massage"],
  "cleansers":["photo-1620916297397-a4a5402a3c6c","mathildelangevin","person-holding-black-glass-bottle-FDRaYqiTY1k","A hand holding a skincare bottle"],

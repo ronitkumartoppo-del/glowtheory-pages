@@ -34,6 +34,25 @@ h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-.01e
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
 .chip{font-size:13px;font-weight:700;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 14px}
 .chip b{color:var(--a)}
+.lb{position:relative;background:#FFFDF9;border-radius:18px;padding:16px 16px 14px;border-top:10px solid var(--a);box-shadow:0 20px 40px -18px rgba(26,23,20,.38);display:flex;flex-direction:column;gap:5px;text-align:left}
+.lb .mono{width:42px;height:42px;border-radius:50%;background:var(--t);color:var(--a);display:grid;place-items:center;font:700 19px Fraunces,serif;margin-bottom:6px}
+.lb .lb-b{font-size:12px;font-weight:800;color:var(--a)}
+.lb .lb-n{font:600 19px/1.15 Fraunces,serif;color:#1A1714}
+.lb .lb-f{font-size:12px;color:#6B6259}
+.lb .lb-tag{align-self:flex-start;font-size:11px;font-weight:800;background:var(--a);color:#fff;border-radius:999px;padding:3px 10px;margin-top:8px}
+.fanbox{position:relative;border-radius:28px;aspect-ratio:4/5;max-height:520px;background:var(--t);overflow:hidden;display:grid;place-items:center}
+.fanbox::before{content:"";position:absolute;inset:12% 6%;border-radius:50%;background:radial-gradient(circle,#fff 0,transparent 70%)}
+.fan{position:relative;width:100%;height:100%}
+.fan .lb{position:absolute;top:50%;left:50%;width:min(58%,260px)}
+.fan .lb:nth-child(1){transform:translate(-92%,-46%) rotate(-8deg)}
+.fan .lb:nth-child(2){transform:translate(-8%,-54%) rotate(7deg)}
+.fan .lb:nth-child(3){transform:translate(-50%,-50%);z-index:2}
+.monos{display:flex;align-items:center;justify-content:center;height:100%}
+.monos i{font-style:normal;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;font:700 26px Fraunces,serif;color:#fff;border:4px solid #fff;margin-left:-14px;box-shadow:0 8px 16px -8px rgba(26,23,20,.4)}
+.monos i:first-child{margin-left:0}
+.s-poster{background:var(--t)!important;justify-content:center!important;align-items:center}
+.s-poster .lb{width:86%}
+@media(max-width:860px){.fanbox{max-width:420px;width:100%;margin:0 auto;aspect-ratio:1/1}}
 .ph{margin:0;position:relative;border-radius:28px;overflow:hidden;aspect-ratio:4/5;max-height:520px;box-shadow:0 24px 48px -20px rgba(26,23,20,.35);background:var(--h)}
 .ph img{width:100%;height:100%;object-fit:cover;display:block}
 .ph figcaption{position:absolute;left:10px;bottom:10px;right:10px;font-size:11px;color:#fff;background:rgba(26,23,20,.55);backdrop-filter:blur(4px);border-radius:10px;padding:5px 9px}
@@ -182,7 +201,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 44px;font-size:13px;color
 <header class="top"><div class="wrap"><a class="logo" href="#"><i></i>The Glow Theory</a><a class="navlink" href="#">All categories</a></div></header>
 <div id="app"></div>
 <footer><div class="wrap">As an Amazon Associate I earn from qualifying purchases. Buyer feedback is summarised in our own words; prices and availability change, so check Amazon before you buy. Follow <a href="https://www.instagram.com/theglowtheory.edit/">@theglowtheory.edit</a>.</div></footer>
-<script src="shop-data.js?v=20261122b"></script>
+<script src="shop-data.js?v=20261122c"></script>
 <script>
 {
 const D=window.GLOW,TAG='glowtheoryig-20';
@@ -238,9 +257,13 @@ const mapSvg=(c,W,H)=>{const pad={l:46,r:16,t:16,b:40},iw=W-pad.l-pad.r,ih=H-pad
  return s};
 const gumroad=id=>(D.gumroad||[]).filter(g=>!g.cats||g.cats.includes(id)||g.cats.includes('*'));
 const gumBlock=id=>{const g=gumroad(id);if(!g.length)return '';return `<section class="block"><h2>From the Glow Theory shop</h2><p class="lead">Printables and planners I make, to go with this routine.</p><div class="slider">${g.map(x=>`<a class="gp" href="${esc(x.url)}" target="_blank" rel="noopener"><small>Digital download</small><b>${esc(x.name)}</b><span>${esc(x.blurb||'')}</span><em>View on Gumroad →</em></a>`).join('')}</div></section>`};
-const catCard=id=>{const c=D.cats[id];return `<a class="cc" href="#${id}" style="${vars(c)}">${PH[id]?`<div class="pic photo" role="img" aria-label="${esc(PH[id][3])}" style="background-image:url('${pimg(id,500)}')"></div>`:`<div class="pic" style="background:${c.t}">${[0,1,2].map(i=>art(c,i)).join('')}</div>`}<div class="tx"><b>${esc(c.name)}</b><span>${esc(c.title)}</span><em style="color:${c.a}">Compare ${c.items.length} picks →</em></div></a>`};
+const catCard=id=>{const c=D.cats[id];return `<a class="cc" href="#${id}" style="${vars(c)}">${PH[id]?`<div class="pic photo" role="img" aria-label="${esc(PH[id][3])}" style="background-image:url('${pimg(id,500)}')"></div>`:`<div class="pic" style="background:${c.t}">${monos([[c,0],[c,1],[c,2]])}</div>`}<div class="tx"><b>${esc(c.name)}</b><span>${esc(c.title)}</span><em style="color:${c.a}">Compare ${c.items.length} picks →</em></div></a>`};
+const ini=b=>b.replace(/[^A-Za-z0-9 ]/g,'').trim().charAt(0).toUpperCase()||'•';
+const label=(c,i)=>{const p=c.items[i];return `<div class="lb" style="${pv(c,i)}"><span class="mono">${esc(ini(p.b))}</span><span class="lb-b">${esc(p.b)}</span><span class="lb-n">${esc(p.n)}</span><span class="lb-f">${esc(p.fmt)}</span><span class="lb-tag">${esc(p.best)}</span></div>`};
+const fan=list=>`<div class="fanbox"><div class="fan">${list.map(([c,i])=>label(c,i)).join('')}</div></div>`;
+const monos=list=>`<div class="monos">${list.map(([c,i])=>`<i style="background:${pal(c,i).a}">${esc(ini(c.items[i].b))}</i>`).join('')}</div>`;
 const PH=D.photos||{};const pimg=(id,w)=>'https://images.unsplash.com/'+PH[id][0]+'?auto=format&fit=crop&w='+w+'&q=75';
-const visual=(c,id)=>PH[id]?`<figure class="ph"><img src="${pimg(id,900)}" alt="${esc(PH[id][3])}" loading="eager"><figcaption>Illustrative photo, not the exact product · <a href="https://unsplash.com/photos/${PH[id][2]}" target="_blank" rel="noopener">@${esc(PH[id][1])} on Unsplash</a></figcaption></figure>`:`<div class="stage"><div class="disc"></div><div class="row">${[1,0,2].map(i=>art(c,i)).join('')}</div></div>`;
+const visual=(c,id)=>PH[id]?`<figure class="ph"><img src="${pimg(id,900)}" alt="${esc(PH[id][3])}" loading="eager"><figcaption>Illustrative photo, not the exact product · <a href="https://unsplash.com/photos/${PH[id][2]}" target="_blank" rel="noopener">@${esc(PH[id][1])} on Unsplash</a></figcaption></figure>`:(c.items?fan([[c,1],[c,2],[c,0]]):'');
 const hero=(c,kick,title,sub,extra,id)=>`<section class="hero"><div class="wrap"><div><p class="kick">${esc(kick)}</p><h1>${esc(title)}</h1><p class="sub">${esc(sub)}</p>${extra||''}</div>${visual(c,id)}</div></section>`;
 
 const viewCat=id=>{const c=D.cats[id],g=groupOf(id);
@@ -250,7 +273,7 @@ const viewCat=id=>{const c=D.cats[id],g=groupOf(id);
  const rows=[['Best for',p=>esc(p.best)],['Format',p=>esc(p.fmt)],['Buyers love',p=>esc(p.love[0])],['Watch out',p=>esc(p.watch[0])],['',p=>buy(p,'Check price')]];
  const table=`<div class="scroll"><table><thead><tr><th></th>${c.items.map((p,i)=>`<th scope="col" style="${pv(c,i)};background:var(--t);border-top:4px solid var(--a)">${esc(p.b)}<br><small style="font:500 12px Manrope;color:#6B6259">${esc(p.n)}</small></th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr><th scope="row">${r[0]}</th>${c.items.map((p,i)=>`<td style="${pv(c,i)}">${r[1](p)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
  const gal=(p,i)=>{const sl=[...(p.photos||[]).map(u=>`<div class="slide"><img src="${esc(u)}" alt="${esc(p.n)}" loading="lazy"></div>`),
-  `<div class="slide s-poster"><span class="pb">${esc(p.best)}</span>${artP(c,i)}<div><b>${esc(p.n)}</b><small>${esc(p.b)} · ${esc(p.fmt)}</small></div></div>`,
+  `<div class="slide s-poster">${label(c,i)}</div>`,
   `<div class="slide s-how"><h5>How to use it</h5><ol>${c.steps.map((s,k)=>`<li><i>${c.decide?'?':k+1}</i><span><b>${esc(s[0])}</b>${esc(s[1])}</span></li>`).join('')}</ol></div>`,
   `<div class="slide s-glance"><h5>At a glance</h5><dl><dt>Best for</dt><dd>${esc(p.best)}</dd><dt>Format</dt><dd>${esc(p.fmt)}</dd><dt>Buyers love</dt><dd>${esc(p.love[0])}</dd><dt>Worth knowing</dt><dd>${esc(p.watch[0])}</dd></dl></div>`,
   `<div class="slide s-pick"><span class="qm">“</span><p>${esc(p.angle)}</p><small>Choose it if: ${esc(p.why)}</small></div>`];
@@ -279,8 +302,8 @@ const viewCol=key=>{const k=D.collections[key];const first=D.cats[k.cats[0]];
 
 const viewHome=()=>{const c={shape:'dropper',a:'#1A1714',t:'#F1ECE4',h:'#D8CCBB'};
  const mix=['lip-masks','ice-rollers','snail-mucin'].map((id,i)=>art(D.cats[id],i));
- return `<section class="hero"><div class="wrap"><div><p class="kick">Skincare &amp; self-care, simplified</p><h1>Find the right one, not just a good one</h1><p class="sub">Every category compared side by side, with what real buyers love and what they don't.</p><div class="how"><div><b>Real feedback</b>Summarised from what buyers actually say.</div><div><b>Honest trade-offs</b>Every pick shows its downsides.</div><div><b>Picked for you</b>"Choose it if" tells you who it suits.</div></div></div><div class="stage"><div class="disc"></div><div class="row">${mix.join('')}</div></div></div></section>
- <main><div class="wrap">${disclosure}<h2 class="group">From recent posts</h2><div class="grid">${Object.entries(D.collections).map(([k,v])=>{const c=D.cats[v.cats[0]];return `<a class="cc" href="#${k}"><div class="pic" style="background:${c.t}">${v.cats.slice(0,3).map((id,i)=>art(D.cats[id],i)).join('')}</div><div class="tx"><b>${esc(v.title)}</b><span>${esc(v.kick)}</span><em style="color:${c.a}">See the picks →</em></div></a>`}).join('')}</div>
+ return `<section class="hero"><div class="wrap"><div><p class="kick">Skincare &amp; self-care, simplified</p><h1>Find the right one, not just a good one</h1><p class="sub">Every category compared side by side, with what real buyers love and what they don't.</p><div class="how"><div><b>Real feedback</b>Summarised from what buyers actually say.</div><div><b>Honest trade-offs</b>Every pick shows its downsides.</div><div><b>Picked for you</b>"Choose it if" tells you who it suits.</div></div></div>${fan([[D.cats['ice-rollers'],0],[D.cats['snail-mucin'],0],[D.cats['lip-masks'],0]])}</div></section>
+ <main><div class="wrap">${disclosure}<h2 class="group">From recent posts</h2><div class="grid">${Object.entries(D.collections).map(([k,v])=>{const c=D.cats[v.cats[0]];return `<a class="cc" href="#${k}"><div class="pic" style="background:${c.t}">${monos(v.cats.slice(0,4).map(id=>[D.cats[id],0]))}</div><div class="tx"><b>${esc(v.title)}</b><span>${esc(v.kick)}</span><em style="color:${c.a}">See the picks →</em></div></a>`}).join('')}</div>
  ${D.groups.map(g=>`<h2 class="group">${esc(g.name)}</h2><div class="grid">${g.ids.map(catCard).join('')}</div>`).join('')}${gumBlock('*')}</div></main>`};
 
 const app=document.getElementById('app');let ro=null;
