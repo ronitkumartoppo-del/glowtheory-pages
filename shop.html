@@ -97,6 +97,15 @@ td .btn{min-height:40px;font-size:13px;padding:0 14px}
 .pc .why{background:var(--t);border-radius:12px;padding:10px 14px;font-size:14px;margin-bottom:14px}
 .pc .why b{color:var(--a)}
 .pc .meta{font-size:13px;color:var(--muted);margin-left:12px}
+.says{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px}
+.say{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 18px 16px;position:relative}
+.say::before{content:"";position:absolute;left:22px;bottom:-9px;width:16px;height:16px;background:#fff;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg)}
+.say .q{font:400 17px/1.45 Fraunces,serif;margin:0 0 12px}
+.say .who{display:flex;align-items:center;gap:10px;font-size:13px;color:var(--muted)}
+.say .av{width:32px;height:32px;border-radius:50%;background:var(--t);color:var(--a);display:grid;place-items:center;font-weight:800;font-size:13px;flex:none}
+.say .mood{margin-left:auto;font-size:11px;font-weight:800;border-radius:999px;padding:3px 9px}
+.say .mood.up{background:var(--t);color:var(--a)}.say .mood.mixed{background:#F3EFE9;color:#6B6259}
+.revlink{display:inline-block;margin-left:12px;font-size:13px;font-weight:700;color:var(--a)}
 .look{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;list-style:none;margin:0;padding:0}
 .look li{background:#fff;border:1px solid var(--line);border-radius:16px;padding:16px;font-size:15px;display:flex;gap:10px;align-items:flex-start}
 .look li::before{content:"";flex:none;width:12px;height:12px;margin-top:6px;border-radius:3px;background:var(--a);transform:rotate(45deg)}
@@ -140,6 +149,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 44px;font-size:13px;color
 {
 const D=window.GLOW,TAG='glowtheoryig-20';
 const amz=a=>'https://www.amazon.com/dp/'+a+'?tag='+TAG;
+const revs=a=>'https://www.amazon.com/product-reviews/'+a+'?tag='+TAG;
 const esc=s=>String(s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
 const S=b=>'<svg viewBox="0 0 120 140" aria-hidden="true">'+b+'</svg>';
 const SH={
@@ -188,17 +198,20 @@ const hero=(c,kick,title,sub,extra)=>`<section class="hero"><div class="wrap"><d
 
 const viewCat=id=>{const c=D.cats[id],g=groupOf(id);
  const q=quick(c);
- const chips=`<div class="chips"><a class="chip" href="#${id}--compare"><b>Compare all ${c.items.length}</b></a><a class="chip" href="#${id}--how">How to use it</a><a class="chip" href="#${id}--picks">Pros and cons</a></div>`;
+ const chips=`<div class="chips"><a class="chip" href="#${id}--compare"><b>Compare all ${c.items.length}</b></a><a class="chip" href="#${id}--how">How to use it</a><a class="chip" href="#${id}--reviews">What buyers say</a><a class="chip" href="#${id}--picks">Pros and cons</a></div>`;
  const steps=`<ol class="steps">${c.steps.map((s,i)=>`<li><div class="n">${c.decide?'?':i+1}</div><div><b>${esc(s[0])}</b><span>${esc(s[1])}</span></div></li>`).join('')}</ol>`;
  const rows=[['Best for',p=>esc(p.best)],['Format',p=>esc(p.fmt)],['Buyers love',p=>esc(p.love[0])],['Watch out',p=>esc(p.watch[0])],['',p=>buy(p,'Check price')]];
  const table=`<div class="scroll"><table><thead><tr><th></th>${c.items.map(p=>`<th scope="col">${esc(p.b)}<br><small style="font:500 12px Manrope;color:#6B6259">${esc(p.n)}</small></th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr><th scope="row">${r[0]}</th>${c.items.map(p=>`<td>${r[1](p)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
- const cards=c.items.map((p,i)=>`<article class="pc" id="${id}--${p.a}"><div class="art"><span class="rank">#${i+1}</span>${art(c,i)}</div><div class="body"><span class="badge">${esc(p.best)}</span><h3>${esc(p.n)}</h3><div class="brand">${esc(p.b)} · ${esc(p.fmt)}</div><p class="angle">${esc(p.angle)}</p><div class="pros"><div><h4>Why buyers love it</h4><ul class="yes">${p.love.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div><h4>Worth knowing</h4><ul class="no">${p.watch.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div><div class="why"><b>Choose it if:</b> ${esc(p.why)}</div>${buy(p)}<span class="meta">Opens Amazon US in a new tab</span></div></article>`).join('');
+ const cards=c.items.map((p,i)=>`<article class="pc" id="${id}--${p.a}"><div class="art"><span class="rank">#${i+1}</span>${art(c,i)}</div><div class="body"><span class="badge">${esc(p.best)}</span><h3>${esc(p.n)}</h3><div class="brand">${esc(p.b)} · ${esc(p.fmt)}</div><p class="angle">${esc(p.angle)}</p><div class="pros"><div><h4>Why buyers love it</h4><ul class="yes">${p.love.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div><h4>Worth knowing</h4><ul class="no">${p.watch.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div><div class="why"><b>Choose it if:</b> ${esc(p.why)}</div>${buy(p)}<a class="revlink" rel="sponsored nofollow noopener" target="_blank" href="${revs(p.a)}">Read all reviews on Amazon →</a></div></article>`).join('');
+ const says=c.items.flatMap((p,i)=>[{p,t:p.love[0],m:'up'},{p,t:p.watch[0],m:'mixed'}]).filter((x,k)=>x.m==='up'||k%4===1).slice(0,6);
+ const saysBlock=`<section class="block" id="${id}--reviews"><h2>What buyers are saying</h2><p class="lead">The most common praise and complaints from Amazon buyers, summarised in our own words.</p><div class="says">${says.map(x=>`<div class="say"><p class="q">${esc(x.t)}</p><div class="who"><span class="av">${esc(x.p.b.charAt(0))}</span><span>Buyers of ${esc(x.p.b)}</span><span class="mood ${x.m}">${x.m==='up'?'Often praised':'Mixed feedback'}</span></div></div>`).join('')}</div><p class="note">Want the full picture? Every pick below links to its complete Amazon reviews.</p></section>`;
  const related=(g?g.ids:[]).filter(x=>x!==id).slice(0,3);
  return `<div style="${vars(c)}">${hero(c,g?g.name:'Shop',c.title,c.sub,chips)}<main><div class="wrap">${disclosure}
  <section class="block"><h2>Quick picks</h2><p class="lead">Short on time? Start here.</p><div class="qp">${q.map(([t,p])=>`<div class="c"><span class="tag">${t}</span><h3>${esc(p.n)}</h3><p>${esc(p.angle)}</p>${buy(p)}</div>`).join('')}</div></section>
  <section class="block" id="${id}--how"><h2>${c.decide?'Which one should she get?':'How to use it'}</h2><p class="lead">${c.decide?'Answer one question and the right box picks itself.':'The routine, in four steps.'}</p><div class="demo">${steps}${c.note?`<p class="note">${esc(c.note)}</p>`:''}</div></section>
  <section class="block"><h2>Where each one sits</h2><p class="lead">Relative price against features. Filled dot is our top pick.</p><div class="mapwrap"><div class="fig" data-map="${id}"><svg role="img" aria-label="Price versus features map for ${esc(c.name)}"></svg></div><p class="legend">Price tiers are relative within this category, not exact prices.</p></div></section>
  <section class="block" id="${id}--compare"><h2>Side-by-side comparison</h2><p class="lead">Scroll sideways on your phone.</p>${table}</section>
+ ${saysBlock}
  <section class="block" id="${id}--picks"><h2>The picks, honestly</h2><p class="lead">What buyers praise, what they complain about, and who each one suits.</p><div class="cards">${cards}</div></section>
  <section class="block"><h2>What to look for</h2><ul class="look">${c.look.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>
  ${gumBlock(id)}
