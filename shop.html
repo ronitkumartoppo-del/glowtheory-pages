@@ -34,6 +34,13 @@ h1,h2,h3{font-family:Fraunces,Georgia,serif;font-weight:600;letter-spacing:-.01e
 .chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
 .chip{font-size:13px;font-weight:700;text-decoration:none;background:#fff;border:1px solid var(--line);border-radius:999px;padding:8px 14px}
 .chip b{color:var(--a)}
+.ph{margin:0;position:relative;border-radius:28px;overflow:hidden;aspect-ratio:4/5;max-height:520px;box-shadow:0 24px 48px -20px rgba(26,23,20,.35);background:var(--h)}
+.ph img{width:100%;height:100%;object-fit:cover;display:block}
+.ph figcaption{position:absolute;left:10px;bottom:10px;right:10px;font-size:11px;color:#fff;background:rgba(26,23,20,.55);backdrop-filter:blur(4px);border-radius:10px;padding:5px 9px}
+.ph figcaption a{color:#fff}
+.ph .tagart{position:absolute;right:-10px;bottom:34px;width:34%;filter:drop-shadow(0 12px 12px rgba(26,23,20,.3))}
+.cc .pic.photo{background-size:cover;background-position:center;height:150px}
+@media(max-width:860px){.ph{max-width:420px;width:100%;margin:0 auto;aspect-ratio:1/1}}
 .stage{position:relative;aspect-ratio:1/.82;display:grid;place-items:center}
 .stage .disc{position:absolute;inset:6% 8%;border-radius:50%;background:radial-gradient(circle at 35% 30%,#fff 0,var(--h) 70%)}
 .stage .row{position:relative;display:flex;align-items:flex-end;gap:4%;width:86%;justify-content:center}
@@ -206,6 +213,13 @@ const SH={
 const shade=(h,p)=>{const n=parseInt(h.slice(1),16);let r=n>>16,g=n>>8&255,b=n&255;const t=p<0?0:255,q=Math.abs(p);r=Math.round(r+(t-r)*q);g=Math.round(g+(t-g)*q);b=Math.round(b+(t-b)*q);return '#'+((1<<24)+(r<<16)+(g<<8)+b).toString(16).slice(1)};
 const art=(c,i)=>SH[c.shape]([c.h,shade(c.h,-.15),shade(c.a,.25),c.a,shade(c.h,.3)][i%5],[c.a,c.a,shade(c.a,-.2),shade(c.h,.2),c.a][i%5]);
 const vars=c=>`--a:${c.a};--t:${c.t};--h:${c.h}`;
+const h2l=h=>{const n=parseInt(h.slice(1),16),r=(n>>16)/255,g=(n>>8&255)/255,b=(n&255)/255,mx=Math.max(r,g,b),mn=Math.min(r,g,b),l=(mx+mn)/2;let s=0,hu=0;if(mx!==mn){const d=mx-mn;s=l>.5?d/(2-mx-mn):d/(mx+mn);hu=mx===r?(g-b)/d+(g<b?6:0):mx===g?(b-r)/d+2:(r-g)/d+4;hu*=60}return [hu,s,l]};
+const l2h=(H,S,L)=>{H=((H%360)+360)%360;const k=n=>(n+H/30)%12,q=S*Math.min(L,1-L),f=n=>L-q*Math.max(-1,Math.min(k(n)-3,9-k(n),1));return '#'+[f(0),f(8),f(4)].map(x=>Math.round(x*255).toString(16).padStart(2,'0')).join('')};
+const lum=h=>{const n=parseInt(h.slice(1),16);return [n>>16,n>>8&255,n&255].map(v=>{v/=255;return v<=.03928?v/12.92:((v+.055)/1.055)**2.4}).reduce((t,v,i)=>t+v*[.2126,.7152,.0722][i],0)};
+const OFF=[0,34,-34,68,-68,102];
+const pal=(c,i)=>{const [H,S]=h2l(c.a);const hu=H+OFF[i%6]+(i?(c.name.length%7)*4:0),sat=Math.max(.38,Math.min(.72,S||.4));let L=.36,a=l2h(hu,sat,L);while(1.05/(lum(a)+.05)<5&&L>.12){L-=.02;a=l2h(hu,sat,L)}return {a,t:l2h(hu,sat*.6,.95),h:l2h(hu,sat*.62,.78)}};
+const pv=(c,i)=>{const p=pal(c,i);return `--a:${p.a};--t:${p.t};--h:${p.h}`};
+const artP=(c,i)=>{const p=pal(c,i);return art({shape:c.shape,a:p.a,h:p.h},0)};
 const disclosure='<p class="disc-note">As an Amazon Associate I earn from qualifying purchases. Buyer feedback below is summarised in our own words from public reviews. Prices change, so check Amazon for today\'s price.</p>';
 const buy=(p,label)=>`<a class="btn" rel="sponsored nofollow noopener" target="_blank" href="${amz(p.a)}">${label||'Check price on Amazon'} <span aria-hidden="true">→</span></a>`;
 const groupOf=id=>D.groups.find(g=>g.ids.includes(id));
@@ -219,46 +233,48 @@ const mapSvg=(c,W,H)=>{const pad={l:46,r:16,t:16,b:40},iw=W-pad.l-pad.r,ih=H-pad
  s+=`<line x1="${pad.l+iw/2}" y1="${pad.t}" x2="${pad.l+iw/2}" y2="${pad.t+ih}" stroke="${c.h}" stroke-dasharray="4 5"/><line x1="${pad.l}" y1="${pad.t+ih/2}" x2="${pad.l+iw}" y2="${pad.t+ih/2}" stroke="${c.h}" stroke-dasharray="4 5"/>`;
  s+=`<text x="${pad.l}" y="${H-12}" font-size="12" fill="#6B6259">Budget</text><text x="${pad.l+iw}" y="${H-12}" font-size="12" fill="#6B6259" text-anchor="end">Premium</text>`;
  s+=`<text transform="translate(16 ${pad.t+ih}) rotate(-90)" font-size="12" fill="#6B6259">Simple</text><text transform="translate(16 ${pad.t}) rotate(-90)" font-size="12" fill="#6B6259" text-anchor="end">Feature-rich</text>`;
- pts.forEach(o=>{s+=`<circle cx="${o.x}" cy="${o.y}" r="${o.i===0?9:7}" fill="${o.i===0?c.a:'#fff'}" stroke="${c.a}" stroke-width="3"/>`});
+ pts.forEach(o=>{const P=pal(c,o.i);s+=`<circle cx="${o.x}" cy="${o.y}" r="${o.i===0?10:8}" fill="${o.i===0?P.a:P.h}" stroke="${P.a}" stroke-width="3"/>`});
  lab.forEach(L=>{s+=`<text x="${L.x}" y="${L.y}" font-size="13" font-weight="700" fill="#1A1714" font-family="Manrope,sans-serif">${esc(L.t)}</text>`});
  return s};
 const gumroad=id=>(D.gumroad||[]).filter(g=>!g.cats||g.cats.includes(id)||g.cats.includes('*'));
 const gumBlock=id=>{const g=gumroad(id);if(!g.length)return '';return `<section class="block"><h2>From the Glow Theory shop</h2><p class="lead">Printables and planners I make, to go with this routine.</p><div class="slider">${g.map(x=>`<a class="gp" href="${esc(x.url)}" target="_blank" rel="noopener"><small>Digital download</small><b>${esc(x.name)}</b><span>${esc(x.blurb||'')}</span><em>View on Gumroad →</em></a>`).join('')}</div></section>`};
-const catCard=id=>{const c=D.cats[id];return `<a class="cc" href="#${id}" style="${vars(c)}"><div class="pic" style="background:${c.t}">${[0,1,2].map(i=>art(c,i)).join('')}</div><div class="tx"><b>${esc(c.name)}</b><span>${esc(c.title)}</span><em style="color:${c.a}">Compare ${c.items.length} picks →</em></div></a>`};
-const hero=(c,kick,title,sub,extra)=>`<section class="hero"><div class="wrap"><div><p class="kick">${esc(kick)}</p><h1>${esc(title)}</h1><p class="sub">${esc(sub)}</p>${extra||''}</div><div class="stage"><div class="disc"></div><div class="row">${[1,0,2].map(i=>art(c,i)).join('')}</div></div></div></section>`;
+const catCard=id=>{const c=D.cats[id];return `<a class="cc" href="#${id}" style="${vars(c)}">${PH[id]?`<div class="pic photo" role="img" aria-label="${esc(PH[id][3])}" style="background-image:url('${pimg(id,500)}')"></div>`:`<div class="pic" style="background:${c.t}">${[0,1,2].map(i=>art(c,i)).join('')}</div>`}<div class="tx"><b>${esc(c.name)}</b><span>${esc(c.title)}</span><em style="color:${c.a}">Compare ${c.items.length} picks →</em></div></a>`};
+const PH=D.photos||{};const pimg=(id,w)=>'https://images.unsplash.com/'+PH[id][0]+'?auto=format&fit=crop&w='+w+'&q=75';
+const visual=(c,id)=>PH[id]?`<figure class="ph"><img src="${pimg(id,900)}" alt="${esc(PH[id][3])}" loading="eager"><figcaption>Illustrative photo, not the exact product · <a href="https://unsplash.com/photos/${PH[id][2]}" target="_blank" rel="noopener">@${esc(PH[id][1])} on Unsplash</a></figcaption></figure>`:`<div class="stage"><div class="disc"></div><div class="row">${[1,0,2].map(i=>art(c,i)).join('')}</div></div>`;
+const hero=(c,kick,title,sub,extra,id)=>`<section class="hero"><div class="wrap"><div><p class="kick">${esc(kick)}</p><h1>${esc(title)}</h1><p class="sub">${esc(sub)}</p>${extra||''}</div>${visual(c,id)}</div></section>`;
 
 const viewCat=id=>{const c=D.cats[id],g=groupOf(id);
  const q=quick(c);
  const chips=`<div class="chips"><a class="chip" href="#${id}--compare"><b>Compare all ${c.items.length}</b></a><a class="chip" href="#${id}--how">How to use it</a><a class="chip" href="#${id}--reviews">What buyers say</a><a class="chip" href="#${id}--picks">Pros and cons</a></div>`;
  const steps=`<ol class="steps">${c.steps.map((s,i)=>`<li><div class="n">${c.decide?'?':i+1}</div><div><b>${esc(s[0])}</b><span>${esc(s[1])}</span></div></li>`).join('')}</ol>`;
  const rows=[['Best for',p=>esc(p.best)],['Format',p=>esc(p.fmt)],['Buyers love',p=>esc(p.love[0])],['Watch out',p=>esc(p.watch[0])],['',p=>buy(p,'Check price')]];
- const table=`<div class="scroll"><table><thead><tr><th></th>${c.items.map(p=>`<th scope="col">${esc(p.b)}<br><small style="font:500 12px Manrope;color:#6B6259">${esc(p.n)}</small></th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr><th scope="row">${r[0]}</th>${c.items.map(p=>`<td>${r[1](p)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+ const table=`<div class="scroll"><table><thead><tr><th></th>${c.items.map((p,i)=>`<th scope="col" style="${pv(c,i)};background:var(--t);border-top:4px solid var(--a)">${esc(p.b)}<br><small style="font:500 12px Manrope;color:#6B6259">${esc(p.n)}</small></th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr><th scope="row">${r[0]}</th>${c.items.map((p,i)=>`<td style="${pv(c,i)}">${r[1](p)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
  const gal=(p,i)=>{const sl=[...(p.photos||[]).map(u=>`<div class="slide"><img src="${esc(u)}" alt="${esc(p.n)}" loading="lazy"></div>`),
-  `<div class="slide s-poster"><span class="pb">${esc(p.best)}</span>${art(c,i)}<div><b>${esc(p.n)}</b><small>${esc(p.b)} · ${esc(p.fmt)}</small></div></div>`,
+  `<div class="slide s-poster"><span class="pb">${esc(p.best)}</span>${artP(c,i)}<div><b>${esc(p.n)}</b><small>${esc(p.b)} · ${esc(p.fmt)}</small></div></div>`,
   `<div class="slide s-how"><h5>How to use it</h5><ol>${c.steps.map((s,k)=>`<li><i>${c.decide?'?':k+1}</i><span><b>${esc(s[0])}</b>${esc(s[1])}</span></li>`).join('')}</ol></div>`,
   `<div class="slide s-glance"><h5>At a glance</h5><dl><dt>Best for</dt><dd>${esc(p.best)}</dd><dt>Format</dt><dd>${esc(p.fmt)}</dd><dt>Buyers love</dt><dd>${esc(p.love[0])}</dd><dt>Worth knowing</dt><dd>${esc(p.watch[0])}</dd></dl></div>`,
   `<div class="slide s-pick"><span class="qm">“</span><p>${esc(p.angle)}</p><small>Choose it if: ${esc(p.why)}</small></div>`];
   return `<div class="gal" data-gal><span class="rank">#${i+1}</span><div class="track">${sl.join('')}</div><div class="ctl"><button class="arr" data-d="-1" aria-label="Previous image">‹</button>${sl.map((_,k)=>`<button class="dot${k?'':' on'}" data-k="${k}" aria-label="Image ${k+1} of ${sl.length}"></button>`).join('')}<button class="arr" data-d="1" aria-label="Next image">›</button></div></div>`};
- const cards=c.items.map((p,i)=>`<article class="pc" id="${id}--${p.a}">${gal(p,i)}<div class="body"><span class="badge">${esc(p.best)}</span><h3>${esc(p.n)}</h3><div class="brand">${esc(p.b)} · ${esc(p.fmt)}</div><p class="angle">${esc(p.angle)}</p><div class="pros"><div><h4>Why buyers love it</h4><ul class="yes">${p.love.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div><h4>Worth knowing</h4><ul class="no">${p.watch.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div><div class="why"><b>Choose it if:</b> ${esc(p.why)}</div>${buy(p)}<a class="revlink" rel="sponsored nofollow noopener" target="_blank" href="${revs(p.a)}">Read all reviews on Amazon →</a></div></article>`).join('');
- const says=c.items.flatMap((p,i)=>[{p,t:p.love[0],m:'up'},{p,t:p.watch[0],m:'mixed'}]).filter((x,k)=>x.m==='up'||k%4===1).slice(0,6);
- const saysBlock=`<section class="block" id="${id}--reviews"><h2>What buyers are saying</h2><p class="lead">The most common praise and complaints from Amazon buyers, summarised in our own words.</p><div class="says">${says.map(x=>`<div class="say"><p class="q">${esc(x.t)}</p><div class="who"><span class="av">${esc(x.p.b.charAt(0))}</span><span>Buyers of ${esc(x.p.b)}</span><span class="mood ${x.m}">${x.m==='up'?'Often praised':'Mixed feedback'}</span></div></div>`).join('')}</div><p class="note">Want the full picture? Every pick below links to its complete Amazon reviews.</p></section>`;
+ const cards=c.items.map((p,i)=>`<article class="pc" id="${id}--${p.a}" style="${pv(c,i)}">${gal(p,i)}<div class="body"><span class="badge">${esc(p.best)}</span><h3>${esc(p.n)}</h3><div class="brand">${esc(p.b)} · ${esc(p.fmt)}</div><p class="angle">${esc(p.angle)}</p><div class="pros"><div><h4>Why buyers love it</h4><ul class="yes">${p.love.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div><h4>Worth knowing</h4><ul class="no">${p.watch.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div><div class="why"><b>Choose it if:</b> ${esc(p.why)}</div>${buy(p)}<a class="revlink" rel="sponsored nofollow noopener" target="_blank" href="${revs(p.a)}">Read all reviews on Amazon →</a></div></article>`).join('');
+ const says=c.items.flatMap((p,i)=>[{p,i,t:p.love[0],m:'up'},{p,i,t:p.watch[0],m:'mixed'}]).filter((x,k)=>x.m==='up'||k%4===1).slice(0,6);
+ const saysBlock=`<section class="block" id="${id}--reviews"><h2>What buyers are saying</h2><p class="lead">The most common praise and complaints from Amazon buyers, summarised in our own words.</p><div class="says">${says.map(x=>`<div class="say" style="${pv(c,x.i)}"><p class="q">${esc(x.t)}</p><div class="who"><span class="av">${esc(x.p.b.charAt(0))}</span><span>Buyers of ${esc(x.p.b)}</span><span class="mood ${x.m}">${x.m==='up'?'Often praised':'Mixed feedback'}</span></div></div>`).join('')}</div><p class="note">Want the full picture? Every pick below links to its complete Amazon reviews.</p></section>`;
  const related=(g?g.ids:[]).filter(x=>x!==id).slice(0,3);
- return `<div style="${vars(c)}">${hero(c,g?g.name:'Shop',c.title,c.sub,chips)}<main><div class="wrap">${disclosure}
- <section class="block"><h2>Quick picks</h2><p class="lead">Short on time? Start here.</p><div class="qp">${q.map(([t,p])=>`<div class="c"><span class="tag">${t}</span><h3>${esc(p.n)}</h3><p>${esc(p.angle)}</p>${buy(p)}</div>`).join('')}</div></section>
+ return `<div style="${vars(c)}">${hero(c,g?g.name:'Shop',c.title,c.sub,chips,id)}<main><div class="wrap">${disclosure}
+ <section class="block"><h2>Quick picks</h2><p class="lead">Short on time? Start here.</p><div class="qp">${q.map(([t,p])=>`<div class="c" style="${pv(c,c.items.indexOf(p))}"><span class="tag">${t}</span><h3>${esc(p.n)}</h3><p>${esc(p.angle)}</p>${buy(p)}</div>`).join('')}</div></section>
  <section class="block" id="${id}--how"><h2>${c.decide?'Which one should she get?':'How to use it'}</h2><p class="lead">${c.decide?'Answer one question and the right box picks itself.':'The routine, in four steps.'}</p><div class="demo">${steps}${c.note?`<p class="note">${esc(c.note)}</p>`:''}</div></section>
  <section class="block"><h2>Where each one sits</h2><p class="lead">Relative price against features. Filled dot is our top pick.</p><div class="mapwrap"><div class="fig" data-map="${id}"><svg role="img" aria-label="Price versus features map for ${esc(c.name)}"></svg></div><p class="legend">Price tiers are relative within this category, not exact prices.</p></div></section>
  <section class="block" id="${id}--compare"><h2>Side-by-side comparison</h2><p class="lead">Scroll sideways on your phone.</p>${table}</section>
  ${saysBlock}
- <section class="block" id="${id}--picks"><h2>The picks, honestly</h2><p class="lead">What buyers praise, what they complain about, and who each one suits.</p><div class="cards">${cards}</div></section>
+ <section class="block" id="${id}--picks"><h2>The picks, honestly</h2><p class="lead">What buyers praise, what they complain about, and who each one suits. The order and labels are our judgement from buyer feedback, features and value; we haven't personally tested every product.</p><div class="cards">${cards}</div></section>
  <section class="block"><h2>What to look for</h2><ul class="look">${c.look.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></section>
  ${gumBlock(id)}
  ${related.length?`<section class="block"><h2>Pairs well with</h2><div class="grid">${related.map(catCard).join('')}</div></section>`:''}
  </div></main></div>`};
 
 const viewCol=key=>{const k=D.collections[key];const first=D.cats[k.cats[0]];
- return `<div style="${vars(first)}">${hero(first,k.kick,k.title,k.sub,'')}<main><div class="wrap">${disclosure}
+ return `<div style="${vars(first)}">${hero(first,k.kick,k.title,k.sub,'',k.cats[0])}<main><div class="wrap">${disclosure}
  <section class="block"><h2>The picks</h2><p class="lead">Our top choice in each step. Tap "Compare" to see every option.</p>
- ${k.cats.map((id,i)=>{const c=D.cats[id],p=c.items[0];return `<div class="stepcard" style="${vars(c)}"><div class="num" style="background:${c.a}">${i+1}</div><div><p class="kick">${esc(c.name)}</p><h3>${esc(p.n)}</h3><p class="angle" style="font:italic 17px/1.4 Fraunces,serif;margin:6px 0 8px">${esc(p.angle)}</p><p style="margin:0;color:#6B6259;font-size:14px">Buyers love: ${esc(p.love.slice(0,2).join('; ').toLowerCase())}.</p><div class="actions">${buy(p)}<a class="btn ghost" href="#${id}">Compare ${c.items.length} options</a></div></div></div>`}).join('')}
+ ${k.cats.map((id,i)=>{const c=D.cats[id],p=c.items[0];return `<div class="stepcard" style="${pv(c,0)}"><div class="num" style="background:var(--a)">${i+1}</div><div><p class="kick">${esc(c.name)}</p><h3>${esc(p.n)}</h3><p class="angle" style="font:italic 17px/1.4 Fraunces,serif;margin:6px 0 8px">${esc(p.angle)}</p><p style="margin:0;color:#6B6259;font-size:14px">Buyers love: ${esc(p.love.slice(0,2).join('; ').toLowerCase())}.</p><div class="actions">${buy(p)}<a class="btn ghost" href="#${id}">Compare ${c.items.length} options</a></div></div></div>`}).join('')}
  </section>${gumBlock(k.cats[0])}</div></main></div>`};
 
 const viewHome=()=>{const c={shape:'dropper',a:'#1A1714',t:'#F1ECE4',h:'#D8CCBB'};
