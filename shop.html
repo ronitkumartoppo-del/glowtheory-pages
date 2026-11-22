@@ -97,6 +97,37 @@ td .btn{min-height:40px;font-size:13px;padding:0 14px}
 .pc .why{background:var(--t);border-radius:12px;padding:10px 14px;font-size:14px;margin-bottom:14px}
 .pc .why b{color:var(--a)}
 .pc .meta{font-size:13px;color:var(--muted);margin-left:12px}
+.pc{grid-template-columns:300px minmax(0,1fr)}
+.gal{position:relative;background:var(--t);display:flex;flex-direction:column}
+.gal .track{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;flex:1}
+.gal .track::-webkit-scrollbar{display:none}
+.slide{flex:0 0 100%;scroll-snap-align:start;aspect-ratio:4/5;position:relative;overflow:hidden;display:flex;flex-direction:column;padding:20px}
+.slide img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.s-poster{background:radial-gradient(circle at 50% 42%,#fff 0,var(--h) 62%,var(--a) 140%);justify-content:space-between}
+.s-poster .pb{align-self:flex-start;font-size:11px;font-weight:800;color:#fff;background:var(--a);border-radius:999px;padding:4px 10px}
+.s-poster svg{width:62%;height:auto;align-self:center;filter:drop-shadow(0 16px 16px rgba(26,23,20,.22))}
+.s-poster b{font:600 20px/1.15 Fraunces,serif;color:var(--ink)}
+.s-poster small{display:block;font-size:12px;color:var(--ink);opacity:.7;margin-top:2px}
+.s-how{background:var(--a);color:#fff;gap:10px}
+.s-how h5,.s-glance h5,.s-pick h5{margin:0 0 4px;font:600 19px/1.2 Fraunces,serif}
+.s-how ol{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.s-how li{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;align-items:start;font-size:13px;line-height:1.35}
+.s-how li i{font-style:normal;width:28px;height:28px;border-radius:50%;background:#fff;color:var(--a);display:grid;place-items:center;font:700 14px Fraunces,serif}
+.s-how li b{display:block;font-size:14px}
+.s-glance{background:#fff;gap:8px}
+.s-glance dl{margin:0;display:grid;gap:8px}
+.s-glance dt{font-size:11px;font-weight:800;color:var(--a)}
+.s-glance dd{margin:0;font-size:14px;line-height:1.35;padding-bottom:7px;border-bottom:1px solid var(--line)}
+.s-pick{background:var(--ink);color:#fff;justify-content:center;text-align:center;gap:12px}
+.s-pick .qm{font:700 64px/0.6 Fraunces,serif;color:var(--h)}
+.s-pick p{font:400 22px/1.3 Fraunces,serif;margin:0}
+.s-pick small{font-size:12px;opacity:.7}
+.gal .ctl{display:flex;align-items:center;justify-content:center;gap:10px;padding:10px}
+.gal .dot{width:8px;height:8px;border-radius:50%;background:var(--h);border:0;padding:0;cursor:pointer}
+.gal .dot.on{background:var(--a);width:22px;border-radius:5px}
+.gal .arr{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:16px;cursor:pointer;color:var(--ink)}
+.gal .rank{position:absolute;top:12px;left:12px;z-index:2;font:700 13px Fraunces,serif;background:#fff;border-radius:999px;padding:3px 10px}
+@media(max-width:640px){.pc{grid-template-columns:minmax(0,1fr)}.slide{aspect-ratio:1/1}}
 .says{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px}
 .say{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 18px 16px;position:relative}
 .say::before{content:"";position:absolute;left:22px;bottom:-9px;width:16px;height:16px;background:#fff;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg)}
@@ -202,7 +233,13 @@ const viewCat=id=>{const c=D.cats[id],g=groupOf(id);
  const steps=`<ol class="steps">${c.steps.map((s,i)=>`<li><div class="n">${c.decide?'?':i+1}</div><div><b>${esc(s[0])}</b><span>${esc(s[1])}</span></div></li>`).join('')}</ol>`;
  const rows=[['Best for',p=>esc(p.best)],['Format',p=>esc(p.fmt)],['Buyers love',p=>esc(p.love[0])],['Watch out',p=>esc(p.watch[0])],['',p=>buy(p,'Check price')]];
  const table=`<div class="scroll"><table><thead><tr><th></th>${c.items.map(p=>`<th scope="col">${esc(p.b)}<br><small style="font:500 12px Manrope;color:#6B6259">${esc(p.n)}</small></th>`).join('')}</tr></thead><tbody>${rows.map(r=>`<tr><th scope="row">${r[0]}</th>${c.items.map(p=>`<td>${r[1](p)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
- const cards=c.items.map((p,i)=>`<article class="pc" id="${id}--${p.a}"><div class="art"><span class="rank">#${i+1}</span>${art(c,i)}</div><div class="body"><span class="badge">${esc(p.best)}</span><h3>${esc(p.n)}</h3><div class="brand">${esc(p.b)} · ${esc(p.fmt)}</div><p class="angle">${esc(p.angle)}</p><div class="pros"><div><h4>Why buyers love it</h4><ul class="yes">${p.love.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div><h4>Worth knowing</h4><ul class="no">${p.watch.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div><div class="why"><b>Choose it if:</b> ${esc(p.why)}</div>${buy(p)}<a class="revlink" rel="sponsored nofollow noopener" target="_blank" href="${revs(p.a)}">Read all reviews on Amazon →</a></div></article>`).join('');
+ const gal=(p,i)=>{const sl=[...(p.photos||[]).map(u=>`<div class="slide"><img src="${esc(u)}" alt="${esc(p.n)}" loading="lazy"></div>`),
+  `<div class="slide s-poster"><span class="pb">${esc(p.best)}</span>${art(c,i)}<div><b>${esc(p.n)}</b><small>${esc(p.b)} · ${esc(p.fmt)}</small></div></div>`,
+  `<div class="slide s-how"><h5>How to use it</h5><ol>${c.steps.map((s,k)=>`<li><i>${c.decide?'?':k+1}</i><span><b>${esc(s[0])}</b>${esc(s[1])}</span></li>`).join('')}</ol></div>`,
+  `<div class="slide s-glance"><h5>At a glance</h5><dl><dt>Best for</dt><dd>${esc(p.best)}</dd><dt>Format</dt><dd>${esc(p.fmt)}</dd><dt>Buyers love</dt><dd>${esc(p.love[0])}</dd><dt>Worth knowing</dt><dd>${esc(p.watch[0])}</dd></dl></div>`,
+  `<div class="slide s-pick"><span class="qm">“</span><p>${esc(p.angle)}</p><small>Choose it if: ${esc(p.why)}</small></div>`];
+  return `<div class="gal" data-gal><span class="rank">#${i+1}</span><div class="track">${sl.join('')}</div><div class="ctl"><button class="arr" data-d="-1" aria-label="Previous image">‹</button>${sl.map((_,k)=>`<button class="dot${k?'':' on'}" data-k="${k}" aria-label="Image ${k+1} of ${sl.length}"></button>`).join('')}<button class="arr" data-d="1" aria-label="Next image">›</button></div></div>`};
+ const cards=c.items.map((p,i)=>`<article class="pc" id="${id}--${p.a}">${gal(p,i)}<div class="body"><span class="badge">${esc(p.best)}</span><h3>${esc(p.n)}</h3><div class="brand">${esc(p.b)} · ${esc(p.fmt)}</div><p class="angle">${esc(p.angle)}</p><div class="pros"><div><h4>Why buyers love it</h4><ul class="yes">${p.love.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div><div><h4>Worth knowing</h4><ul class="no">${p.watch.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div></div><div class="why"><b>Choose it if:</b> ${esc(p.why)}</div>${buy(p)}<a class="revlink" rel="sponsored nofollow noopener" target="_blank" href="${revs(p.a)}">Read all reviews on Amazon →</a></div></article>`).join('');
  const says=c.items.flatMap((p,i)=>[{p,t:p.love[0],m:'up'},{p,t:p.watch[0],m:'mixed'}]).filter((x,k)=>x.m==='up'||k%4===1).slice(0,6);
  const saysBlock=`<section class="block" id="${id}--reviews"><h2>What buyers are saying</h2><p class="lead">The most common praise and complaints from Amazon buyers, summarised in our own words.</p><div class="says">${says.map(x=>`<div class="say"><p class="q">${esc(x.t)}</p><div class="who"><span class="av">${esc(x.p.b.charAt(0))}</span><span>Buyers of ${esc(x.p.b)}</span><span class="mood ${x.m}">${x.m==='up'?'Often praised':'Mixed feedback'}</span></div></div>`).join('')}</div><p class="note">Want the full picture? Every pick below links to its complete Amazon reviews.</p></section>`;
  const related=(g?g.ids:[]).filter(x=>x!==id).slice(0,3);
@@ -237,6 +274,9 @@ const route=()=>{let h=decodeURIComponent(location.hash.slice(1));const anchor=h
  if(key!==last){last=key;let html,title;if(D.cats[key]){html=viewCat(key);title=D.cats[key].name}else if(D.collections[key]){html=viewCol(key);title=D.collections[key].title}else{html=viewHome();title=''}
   app.innerHTML=html;document.title=(title?title+' · ':'')+'The Glow Theory';drawMaps();if(!anchor)window.scrollTo(0,0)}
  if(anchor){const el=document.getElementById(anchor);if(el)el.scrollIntoView({behavior:'smooth'})}};
+/* gallery controls: arrows, dots, swipe sync */
+app.addEventListener('click',e=>{const b=e.target.closest('.gal button');if(!b)return;const g=b.closest('.gal'),t=g.querySelector('.track'),w=t.clientWidth,n=t.children.length;let k=Math.round(t.scrollLeft/w);k=b.dataset.k!==undefined?+b.dataset.k:(k+(+b.dataset.d)+n)%n;t.scrollTo({left:k*w,behavior:'smooth'})});
+app.addEventListener('scroll',e=>{const t=e.target;if(!t.classList||!t.classList.contains('track'))return;const k=Math.round(t.scrollLeft/t.clientWidth);t.parentElement.querySelectorAll('.dot').forEach((d,j)=>d.classList.toggle('on',j===k))},true);
 window.addEventListener('hashchange',route);route();
 }
 </script>
