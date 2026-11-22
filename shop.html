@@ -177,7 +177,10 @@ td{background:color-mix(in srgb,var(--t) 55%,#fff)}
 .look li::before{content:"";flex:none;width:12px;height:12px;margin-top:6px;border-radius:3px;background:var(--a);transform:rotate(45deg)}
 /* gumroad slider */
 .slider{display:grid;grid-auto-flow:column;grid-auto-columns:minmax(240px,1fr);gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px}
-.gp{scroll-snap-align:start;background:#1A1714;color:#fff;border-radius:20px;padding:20px;display:flex;flex-direction:column;gap:8px;text-decoration:none}
+.gp{scroll-snap-align:start;background:#1A1714;color:#fff;border-radius:20px;padding:12px 12px 18px;display:flex;flex-direction:column;gap:8px;text-decoration:none}
+.gp img{width:100%;aspect-ratio:4/3;object-fit:cover;border-radius:12px;background:#2a2622;margin-bottom:6px}
+.gp i{font-style:normal;font-weight:800;font-size:13px;background:#fff;color:#1A1714;border-radius:99px;padding:3px 10px;align-self:flex-start}
+.gp>small,.gp>b,.gp>span,.gp>em,.gp>i{margin-left:8px;margin-right:8px}
 .gp small{font-size:12px;font-weight:800;color:var(--h)}
 .gp b{font:600 20px/1.2 Fraunces,serif}
 .gp span{font-size:14px;opacity:.8;flex:1}
@@ -210,7 +213,7 @@ footer{border-top:1px solid var(--line);padding:26px 0 44px;font-size:13px;color
 <header class="top"><div class="wrap"><a class="logo" href="#"><i></i>The Glow Theory</a><a class="navlink" href="#">All categories</a></div></header>
 <div id="app"></div>
 <footer><div class="wrap">As an Amazon Associate I earn from qualifying purchases. Buyer feedback is summarised in our own words; prices and availability change, so check Amazon before you buy. Follow <a href="https://www.instagram.com/theglowtheory.edit/">@theglowtheory.edit</a>.</div></footer>
-<script src="shop-data.js?v=20261122c"></script>
+<script src="shop-data.js?v=20261122d"></script>
 <script>
 {
 const D=window.GLOW,TAG='glowtheoryig-20';
@@ -264,8 +267,8 @@ const mapSvg=(c,W,H)=>{const pad={l:46,r:16,t:16,b:40},iw=W-pad.l-pad.r,ih=H-pad
  pts.forEach(o=>{const P=pal(c,o.i);s+=`<circle cx="${o.x}" cy="${o.y}" r="${o.i===0?10:8}" fill="${o.i===0?P.a:P.h}" stroke="${P.a}" stroke-width="3"/>`});
  lab.forEach(L=>{s+=`<text x="${L.x}" y="${L.y}" font-size="13" font-weight="700" fill="#1A1714" font-family="Manrope,sans-serif">${esc(L.t)}</text>`});
  return s};
-const gumroad=id=>(D.gumroad||[]).filter(g=>!g.cats||g.cats.includes(id)||g.cats.includes('*'));
-const gumBlock=id=>{const g=gumroad(id);if(!g.length)return '';return `<section class="block"><h2>From the Glow Theory shop</h2><p class="lead">Printables and planners I make, to go with this routine.</p><div class="slider">${g.map(x=>`<a class="gp" href="${esc(x.url)}" target="_blank" rel="noopener"><small>Digital download</small><b>${esc(x.name)}</b><span>${esc(x.blurb||'')}</span><em>View on Gumroad →</em></a>`).join('')}</div></section>`};
+const gumroad=id=>(D.gumroad||[]).filter(g=>id==='*'||!g.cats||g.cats.includes(id)||g.cats.includes('*'));
+const gumBlock=id=>{const g=gumroad(id);if(!g.length)return '';return `<section class="block"><h2>From the Glow Theory shop</h2><p class="lead">Printables and planners made by The Glow Theory — to keep the routine going.</p><div class="slider">${g.map(x=>`<a class="gp" href="${esc(x.url)}" target="_blank" rel="noopener">${x.img?`<img src="${esc(x.img)}" alt="${esc(x.name)} cover" loading="lazy">`:''}<small>Printable · instant download</small><b>${esc(x.name)}</b><span>${esc(x.sub||x.blurb||'')}</span><i>${esc(x.price||'')}</i><em>View on Gumroad →</em></a>`).join('')}</div></section>`};
 const catCard=id=>{const c=D.cats[id];return `<a class="cc" href="#${id}" style="${vars(c)}">${PH[id]?`<div class="pic photo" role="img" aria-label="${esc(PH[id][3])}" style="background-image:url('${pimg(id,500)}')"></div>`:`<div class="pic" style="background:${c.t}">${monos([[c,0],[c,1],[c,2]])}</div>`}<div class="tx"><b>${esc(c.name)}</b><span>${esc(c.title)}</span><em style="color:${c.a}">Compare ${c.items.length} picks →</em></div></a>`};
 const ini=b=>b.replace(/[^A-Za-z0-9 ]/g,'').trim().charAt(0).toUpperCase()||'•';
 const label=(c,i)=>{const p=c.items[i];return `<div class="lb" style="${pv(c,i)}"><span class="mono">${esc(ini(p.b))}</span><span class="lb-b">${esc(p.b)}</span><span class="lb-n">${esc(p.n)}</span><span class="lb-f">${esc(p.fmt)}</span><span class="lb-tag">${esc(p.best)}</span></div>`};
