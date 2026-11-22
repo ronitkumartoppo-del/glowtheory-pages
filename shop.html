@@ -154,6 +154,15 @@ td .btn{min-height:40px;font-size:13px;padding:0 14px}
 .gal .arr{width:34px;height:34px;border-radius:50%;border:1px solid var(--line);background:#fff;font-size:16px;cursor:pointer;color:var(--ink)}
 .gal .rank{position:absolute;top:12px;left:12px;z-index:2;font:700 13px Fraunces,serif;background:#fff;border-radius:999px;padding:3px 10px}
 @media(max-width:640px){.pc{grid-template-columns:minmax(0,1fr)}.slide{aspect-ratio:1/1}}
+.pc{background:var(--t);border:1.5px solid var(--h)}
+.pc .gal{background:var(--h)}
+.pc .body{background:linear-gradient(160deg,var(--t) 0,#fff 70%)}
+.pc .why{background:#fff;border:1px solid var(--h)}
+.pc .yes li::before{background:#fff}
+.qp .c{background:var(--t);border:1.5px solid var(--h)}
+.qp .tag{background:#fff}
+.say{background:var(--t)!important;border-color:var(--h)!important}.say::before{background:var(--t)!important;border-color:var(--h)!important}
+td{background:color-mix(in srgb,var(--t) 55%,#fff)}
 .says{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px}
 .say{background:#fff;border:1px solid var(--line);border-radius:20px;padding:18px 18px 16px;position:relative}
 .say::before{content:"";position:absolute;left:22px;bottom:-9px;width:16px;height:16px;background:#fff;border-right:1px solid var(--line);border-bottom:1px solid var(--line);transform:rotate(45deg)}
@@ -236,7 +245,7 @@ const h2l=h=>{const n=parseInt(h.slice(1),16),r=(n>>16)/255,g=(n>>8&255)/255,b=(
 const l2h=(H,S,L)=>{H=((H%360)+360)%360;const k=n=>(n+H/30)%12,q=S*Math.min(L,1-L),f=n=>L-q*Math.max(-1,Math.min(k(n)-3,9-k(n),1));return '#'+[f(0),f(8),f(4)].map(x=>Math.round(x*255).toString(16).padStart(2,'0')).join('')};
 const lum=h=>{const n=parseInt(h.slice(1),16);return [n>>16,n>>8&255,n&255].map(v=>{v/=255;return v<=.03928?v/12.92:((v+.055)/1.055)**2.4}).reduce((t,v,i)=>t+v*[.2126,.7152,.0722][i],0)};
 const OFF=[0,34,-34,68,-68,102];
-const pal=(c,i)=>{const [H,S]=h2l(c.a);const hu=H+OFF[i%6]+(i?(c.name.length%7)*4:0),sat=Math.max(.38,Math.min(.72,S||.4));let L=.36,a=l2h(hu,sat,L);while(1.05/(lum(a)+.05)<5&&L>.12){L-=.02;a=l2h(hu,sat,L)}return {a,t:l2h(hu,sat*.6,.95),h:l2h(hu,sat*.62,.78)}};
+const pal=(c,i)=>{const [H]=h2l(c.a);const ci=Object.values(D.cats).indexOf(c);const hu=H+i*72+ci*11,sat=.54+(ci%5)*.04;let L=.38,a=l2h(hu,sat,L);while(1.05/(lum(a)+.05)<5&&L>.12){L-=.02;a=l2h(hu,sat,L)}return {a,t:l2h(hu,.7,.93),h:l2h(hu,.6,.8)}};
 const pv=(c,i)=>{const p=pal(c,i);return `--a:${p.a};--t:${p.t};--h:${p.h}`};
 const artP=(c,i)=>{const p=pal(c,i);return art({shape:c.shape,a:p.a,h:p.h},0)};
 const disclosure='<p class="disc-note">As an Amazon Associate I earn from qualifying purchases. Buyer feedback below is summarised in our own words from public reviews. Prices change, so check Amazon for today\'s price.</p>';
