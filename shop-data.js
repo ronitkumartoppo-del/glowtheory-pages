@@ -539,8 +539,6 @@ aliases: {"ice-roller":"ice-rollers","shop-all":""}
 window.GLOW.photos = {
  "gua-sha":["photo-1578747763484-51b21a33e4fa","contentpixie","white-face-massager-j1WYUNgLbOk","A white face massage tool"],
  "ice-rollers":["photo-1578747763484-51b21a33e4fa","contentpixie","white-face-massager-j1WYUNgLbOk","A white face roller tool"],
- "face-scrubbers":["photo-1761718210089-ba3bb5ccb54f","kimick","a-person-receiving-a-facial-treatment-RbIcMsh0NSk","A person receiving a facial cleanse"],
- "led-masks":["photo-1559818447-969ea3aa2fbd","shagunn","person-in-blue-and-green-led-mask-sitting-in-front-of-turned-on-computer-monitor-YSdBUTaFqg8","A person wearing an LED face mask"],
  "microcurrent":["photo-1598901986949-f593ff2a31a6","tinymountain","massage-therapy-in-dim-warm-light-WAm_HaI4W2E","Hands giving a facial massage"],
  "cleansers":["photo-1620916297397-a4a5402a3c6c","mathildelangevin","person-holding-black-glass-bottle-FDRaYqiTY1k","A hand holding a skincare bottle"],
  "vitamin-c":["photo-1713768704571-6aeb0d0e5105","normals","a-bottle-of-liquid-with-a-dropper-on-a-yellow-background-GjJZ5HBl2qQ","A dropper bottle on a yellow background"],
@@ -554,5 +552,4 @@ window.GLOW.photos = {
  "bath-bombs":["photo-1690583368241-8b8cd3d3f9af","eirhealth","a-persons-hand-in-a-bath-of-water-zDxSdmMsYMw","A hand resting in a warm bath"],
  "journals":["photo-1517971071642-34a2d3ecc9cd","hannaholinger","a-person-writing-on-a-piece-of-paper-with-a-pen-8eSrC43qdro","A person writing in a journal"],
  "vanity-organizers":["photo-1608979048467-6194dabc6a3d","johannepoldjacobsen","makeup-bottles-and-candle-on-tray-vyhYvCiL3QQ","Makeup and skincare on a marble tray"],
- "mini-fridges":["photo-1687293375398-65aadbb792d1","omarlopez1","a-white-shelf-filled-with-lots-of-different-types-of-skin-care-products-rqGt9Ojb4rU","A shelf of skincare products"]
 };
