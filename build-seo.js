@@ -39,7 +39,7 @@ for(const [id,c] of Object.entries(D.cats)){const z=D.seo[id];const canon=SITE+i
   {"@type":"FAQPage","mainEntity":z.f.map(([q,a])=>({"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}}))}]};
  fs.mkdirSync(id,{recursive:true});fs.writeFileSync(id+'/index.html',page(id,{title:z.t+' | The Glow Theory',desc:z.d,image:img(id),ld}));urls.push(canon)}
 for(const [k,v] of Object.entries(D.collections)){const z=D.seoCol[k];const canon=SITE+k+'/';
- const ld={"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Shop","item":SITE+"shop.html"},{"@type":"ListItem","position":2,"name":v.title,"item":canon}]},{"@type":"Article","headline":z.t,"description":z.d,"image":img(v.cats[0]),"dateModified":today,"author":org,"publisher":org,"mainEntityOfPage":canon}]};
+ const ld={"@context":"https://schema.org","@graph":[{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Shop","item":SITE+"shop.html"},{"@type":"ListItem","position":2,"name":v.title,"item":canon}]},{"@type":"Article","headline":z.t,"description":z.d,"image":img(v.cats[0]),"dateModified":today,"author":org,"publisher":org,"mainEntityOfPage":canon}].concat(z.f?[{"@type":"FAQPage","mainEntity":z.f.map(([q,a])=>({"@type":"Question","name":q,"acceptedAnswer":{"@type":"Answer","text":a}}))}]:[])};
  fs.mkdirSync(k,{recursive:true});fs.writeFileSync(k+'/index.html',page(k,{title:z.t+' | The Glow Theory',desc:z.d,image:img(v.cats[0]),ld}));urls.push(canon)}
 // sitemap: keep existing urls, add ours
 let sm=fs.readFileSync('sitemap.xml','utf8');const have=new Set([...sm.matchAll(/<loc>([^<]+)<\/loc>/g)].map(m=>m[1]));
