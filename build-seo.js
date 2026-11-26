@@ -27,7 +27,7 @@ function page(key,{title,desc,image,ld}){
   if(key)h=h.replace('<script src="/glowtheory-pages/shop-data.js',`<script>window.GLOW_PAGE=${JSON.stringify(key)}</script>\n<script src="/glowtheory-pages/shop-data.js`);
   return h}
 const org={"@type":"Organization","name":"The Glow Theory","url":SITE+"shop.html","sameAs":["https://www.instagram.com/theglowtheory.edit/"]};
-const urls=[];const today='2026-11-22';
+const urls=[];const today='2026-11-26';
 // home
 fs.writeFileSync('shop.html',page(null,{title:'The Glow Theory: Skincare & Self-Care Picks, Honestly Compared',desc:'Skincare and self-care tools compared side by side: ice rollers, gua sha, LED masks, sunscreen, serums and gifts, with what real buyers love and complain about.',image:img('ice-rollers'),ld:{"@context":"https://schema.org","@graph":[{"@type":"WebSite","name":"The Glow Theory","url":SITE+"shop.html"},org,{"@type":"ItemList","itemListElement":Object.keys(D.cats).map((id,i)=>({"@type":"ListItem","position":i+1,"name":D.cats[id].name,"url":SITE+id+'/'}))}]}}));
 urls.push(SITE+'shop.html');
