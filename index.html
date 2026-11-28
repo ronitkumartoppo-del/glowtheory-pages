@@ -84,6 +84,39 @@ footer{padding:26px 0 36px;border-top:1px solid var(--line);font-size:.86rem;col
 </div></section>
 
 </main>
+<!-- gt-optin -->
+<style>
+.gt-optin{background:var(--cream,#FFF7F2);padding:34px 18px;border-top:1px solid var(--line,#f6dbe6)}
+.gt-optin-in{max-width:28em;margin:0 auto;text-align:center;background:#fff;border:1px solid var(--line,#f6dbe6);border-radius:18px;padding:26px 20px;box-shadow:0 6px 22px rgba(190,24,93,.06)}
+.gt-optin h2{font-family:"Playfair Display",Georgia,serif;color:var(--magenta,#BE185D);font-size:1.5rem;line-height:1.2;margin:0 0 .4em}
+.gt-optin p{margin:0 0 14px;color:var(--muted,#6f5662);font-size:1rem;line-height:1.5}
+.gt-optin form{text-align:left}
+.gt-optin .gt-f{margin:0 0 12px}
+.gt-optin label{display:block;font-size:.86rem;font-weight:600;margin:0 0 6px;color:var(--ink,#3b2430)}
+.gt-optin .gt-opt{font-weight:400;color:var(--muted,#6f5662)}
+.gt-optin input[type=email],.gt-optin input[type=text]{width:100%;box-sizing:border-box;padding:13px 14px;border:1px solid var(--line,#f6dbe6);border-radius:12px;font:inherit;color:var(--ink,#3b2430);background:#fff}
+.gt-optin input:focus{outline:2px solid var(--pink,#EC4899);outline-offset:1px;border-color:var(--pink,#EC4899)}
+.gt-optin button{width:100%;border:0;cursor:pointer;font:inherit;font-weight:700;padding:14px 18px;border-radius:999px;background:var(--magenta,#BE185D);color:#fff;margin-top:4px}
+.gt-optin .gt-small{font-size:.8rem;margin:10px 0 0;text-align:center}
+.gt-optin .gt-ok{display:none;font-weight:600;color:var(--magenta,#BE185D)}
+.gt-optin.is-sent .gt-ok{display:block}
+.gt-optin.is-sent form,.gt-optin.is-sent .gt-lead{display:none}
+</style>
+<section class="gt-optin" id="gt-optin" aria-labelledby="gt-optin-h"><div class="gt-optin-in">
+<h2 id="gt-optin-h">Get the printable 30-Day Glow-Up Checklist</h2>
+<p class="gt-lead">One small step a day for your mind, your space and your routine. We email it to you, plus a few gentle self-care notes.</p>
+<p class="gt-ok" role="status">Check your inbox to confirm and get your checklist.</p>
+<form id="gt-optin-form" action="https://assets.mailerlite.com/jsonp/2795174/forms/204109990856755075/subscribe" method="post" target="gt-ml-iframe">
+<div class="gt-f"><label for="gt-ml-email">Email</label><input id="gt-ml-email" type="email" name="fields[email]" required autocomplete="email" inputmode="email"></div>
+<div class="gt-f"><label for="gt-ml-name">First name <span class="gt-opt">(optional)</span></label><input id="gt-ml-name" type="text" name="fields[name]" autocomplete="given-name"></div>
+<input type="hidden" name="ml-submit" value="1"><input type="hidden" name="anticsrf" value="true">
+<button type="submit">Send me the checklist</button>
+<p class="gt-small">By signing up you agree to get emails from Glow Theory &amp; Co. Unsubscribe any time.</p>
+</form>
+<iframe name="gt-ml-iframe" title="Signup confirmation" hidden tabindex="-1"></iframe>
+</div></section>
+<script>(function(){var b=document.getElementById("gt-optin"),f=document.getElementById("gt-optin-form");if(b&&f){f.addEventListener("submit",function(){b.classList.add("is-sent")})}})();</script>
+<!-- /gt-optin -->
 <footer><div class="wrap">© 2026 Glow Theory &amp; Co. · Self-care · Planners · Printables</div></footer>
 </body>
 </html>
